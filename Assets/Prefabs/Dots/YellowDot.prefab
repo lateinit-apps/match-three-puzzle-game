@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &501335393471126614
+--- !u!1 &7302928498434684919
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 187277660454776261}
-  - component: {fileID: 1716391622124370006}
-  - component: {fileID: 5698869791378141916}
+  - component: {fileID: 7302928498434684918}
+  - component: {fileID: 7302928498434684913}
+  - component: {fileID: 9171756186663910219}
   m_Layer: 0
-  m_Name: TileNormal
+  m_Name: YellowDot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &187277660454776261
+--- !u!4 &7302928498434684918
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 501335393471126614}
+  m_GameObject: {fileID: 7302928498434684919}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,13 +32,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1716391622124370006
+--- !u!212 &7302928498434684913
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 501335393471126614}
+  m_GameObject: {fileID: 7302928498434684919}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -70,8 +70,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2f947a6b216538945bc2c7d4fc5e186c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: fe1a21c424b58d24daa67aa90f1bdea7, type: 3}
+  m_Color: {r: 0.9725491, g: 0.8313726, b: 0.10588236, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -81,16 +81,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5698869791378141916
+--- !u!114 &9171756186663910219
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 501335393471126614}
+  m_GameObject: {fileID: 7302928498434684919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 956584840d7105e4db409c04f2d0bed0, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b3e61aa44156e54d99afbe7ad36b389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   xIndex: 0
