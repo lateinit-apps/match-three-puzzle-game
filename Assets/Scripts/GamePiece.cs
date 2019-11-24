@@ -7,6 +7,17 @@ public class GamePiece : MonoBehaviour
     public int xIndex;
     public int yIndex;
 
+    public InterpolationType interpolation = InterpolationType.SmootherStep;
+
+    public enum InterpolationType
+    {
+        Linear,
+        EaseOut,
+        EaseIn,
+        SmoothStep,
+        SmootherStep
+    }
+
     private bool isMoving = false;
 
     private IEnumerator MoveRoutine(Vector3 destination, float timeToMove)
@@ -32,6 +43,25 @@ public class GamePiece : MonoBehaviour
             elapsedTime += Time.deltaTime;
 
             float t = Mathf.Clamp(elapsedTime / timeToMove, 0f, 1f);
+
+            switch (interpolation)
+            {
+                case InterpolationType.Linear:
+                    break;
+                case InterpolationType.EaseOut:
+                    t = Mathf.Sin(t * Mathf.PI * 0.5f);
+                    break;
+                case InterpolationType.EaseIn:
+                    t = 1 - Mathf.Cos(t * Mathf.PI * 0.5f);
+                    break;
+                case InterpolationType.SmoothStep:
+                    t = t * t * (3 - 2 * t);
+                    break;
+                case InterpolationType.SmootherStep:
+                    t = t * t * t * (t * (t * 6 - 15) + 10);
+                    break;
+            }
+            t = t * t * (3 - 2 * t);
 
             transform.position = Vector3.Lerp(startPosition, destination, t);
 
