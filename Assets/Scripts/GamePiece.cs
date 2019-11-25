@@ -18,6 +18,21 @@ public class GamePiece : MonoBehaviour
         SmootherStep
     }
 
+    public MatchValue matchValue;
+
+    public enum MatchValue
+    {
+        Blue,
+        Cyan,
+        Green,
+        Indigo,
+        Magenta,
+        Red,
+        Teal,
+        Yellow,
+        Wild
+    }
+
     private bool isMoving = false;
 
     private Board board;
