@@ -20,6 +20,8 @@ public class GamePiece : MonoBehaviour
 
     private bool isMoving = false;
 
+    private Board board;
+
     private IEnumerator MoveRoutine(Vector3 destination, float timeToMove)
     {
         Vector3 startPosition = transform.position;
@@ -35,8 +37,12 @@ public class GamePiece : MonoBehaviour
             if (Vector3.Distance(transform.position, destination) < 0.01f)
             {
                 reachedDestination = true;
-                transform.position = destination;
-                SetCoordinates((int)destination.x, (int)destination.y);
+
+                if (board != null)
+                {
+                    board.PlaceGamePiece(this, (int)destination.x, (int)destination.y);
+                }
+
                 break;
             }
 
@@ -70,6 +76,8 @@ public class GamePiece : MonoBehaviour
 
         isMoving = false;
     }
+
+    public void Init(Board board) => this.board = board;
 
     public void SetCoordinates(int x, int y)
     {

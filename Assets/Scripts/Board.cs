@@ -10,6 +10,8 @@ public class Board : MonoBehaviour
     public GameObject tilePrefab;
     public GameObject[] gamePiecePrefabs;
 
+    public float swapTime = 0.5f;
+
     private Tile[,] allTiles;
     private GamePiece[,] allGamePieces;
 
@@ -70,18 +72,6 @@ public class Board : MonoBehaviour
         return gamePiecePrefabs[randomIndex];
     }
 
-    private void PlaceGamePiece(GamePiece gamePiece, int x, int y)
-    {
-        if (gamePiece == null)
-        {
-            Debug.LogWarning("BOARD: Invalid GamePiece!");
-        }
-
-        gamePiece.transform.position = new Vector3(x, y, 0);
-        gamePiece.transform.rotation = Quaternion.identity;
-        gamePiece.SetCoordinates(x, y);
-    }
-
     private void FillRandom()
     {
         for (int i = 0; i < width; i++)
@@ -93,6 +83,9 @@ public class Board : MonoBehaviour
 
                 if (randomPiece != null)
                 {
+                    randomPiece.GetComponent<GamePiece>().Init(this);
+                    randomPiece.transform.parent = transform;
+
                     PlaceGamePiece(randomPiece.GetComponent<GamePiece>(), i, j);
                 }
             }
@@ -101,8 +94,34 @@ public class Board : MonoBehaviour
 
     private void SwitchTiles(Tile clickedTile, Tile targetTile)
     {
-        this.clickedTile = null;
-        this.targetTile = null;
+        GamePiece clickedPiece = allGamePieces[clickedTile.xIndex, clickedTile.yIndex];
+        GamePiece targetPiece = allGamePieces[targetTile.xIndex, targetTile.yIndex];
+
+        clickedPiece.Move(targetTile.xIndex, targetTile.yIndex, swapTime);
+        targetPiece.Move(clickedTile.xIndex, clickedTile.yIndex, swapTime);
+    }
+
+    private bool IsWithinBounds(int x, int y) => x >= 0 && x < width && y >= 0 && y < height;
+
+    private bool IsNextTo(Tile start, Tile end) =>
+        (Mathf.Abs(start.xIndex - end.xIndex) == 1 && start.yIndex == end.yIndex) ||
+        (Mathf.Abs(start.yIndex - end.yIndex) == 1 && start.xIndex == end.xIndex);
+
+    public void PlaceGamePiece(GamePiece gamePiece, int x, int y)
+    {
+        if (gamePiece == null)
+        {
+            Debug.LogWarning("BOARD: Invalid GamePiece!");
+        }
+
+        gamePiece.transform.position = new Vector3(x, y, 0);
+        gamePiece.transform.rotation = Quaternion.identity;
+        gamePiece.SetCoordinates(x, y);
+
+        if (IsWithinBounds(x, y))
+        {
+            allGamePieces[x, y] = gamePiece;
+        }
     }
 
     public void ClickTile(Tile tile)
@@ -110,13 +129,12 @@ public class Board : MonoBehaviour
         if (clickedTile == null)
         {
             clickedTile = tile;
-            Debug.Log("Clicked tile: " + tile.name);
         }
     }
 
     public void DragToTile(Tile tile)
     {
-        if (clickedTile != null)
+        if (clickedTile != null && IsNextTo(tile, clickedTile))
         {
             targetTile = tile;
         }
@@ -127,6 +145,9 @@ public class Board : MonoBehaviour
         if (clickedTile != null && targetTile != null)
         {
             SwitchTiles(clickedTile, targetTile);
+
+            clickedTile = null;
+            targetTile = null;
         }
     }
 }
