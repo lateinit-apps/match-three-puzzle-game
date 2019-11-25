@@ -127,7 +127,7 @@ public class Board : MonoBehaviour
 
                 ClearPieceAt(clickedPieceMatches);
                 ClearPieceAt(targetPieceMatches);
-                
+
                 // HighlightMatchesAt(clickedTile.xIndex, clickedTile.yIndex);
                 // HighlightMatchesAt(targetTile.xIndex, targetTile.yIndex);
             }
@@ -205,8 +205,8 @@ public class Board : MonoBehaviour
 
     private List<GamePiece> FindVerticalMatches(int startX, int startY, int minLength = 3)
     {
-        List<GamePiece> upwardMatches = FindMatches(startX, startY, new Vector2(0, 1));
-        List<GamePiece> downwardMatches = FindMatches(startX, startY, new Vector2(0, -1));
+        List<GamePiece> upwardMatches = FindMatches(startX, startY, new Vector2(0, 1), 2);
+        List<GamePiece> downwardMatches = FindMatches(startX, startY, new Vector2(0, -1), 2);
 
         if (upwardMatches == null)
         {
@@ -225,8 +225,8 @@ public class Board : MonoBehaviour
 
     private List<GamePiece> FindHorizontalMatches(int startX, int startY, int minLength = 3)
     {
-        List<GamePiece> rightMatches = FindMatches(startX, startY, new Vector2(1, 0));
-        List<GamePiece> leftMatches = FindMatches(startX, startY, new Vector2(-1, 0));
+        List<GamePiece> rightMatches = FindMatches(startX, startY, new Vector2(1, 0), 2);
+        List<GamePiece> leftMatches = FindMatches(startX, startY, new Vector2(-1, 0), 2);
 
         if (rightMatches == null)
         {
