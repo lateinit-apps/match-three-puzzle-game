@@ -76,24 +76,67 @@ public class Board : MonoBehaviour
         return gamePiecePrefabs[randomIndex];
     }
 
+    private GamePiece FillRandomAt(int x, int y)
+    {
+        GameObject randomPiece =
+           Instantiate<GameObject>(GetRandomGamePiece(), Vector3.zero, Quaternion.identity);
+
+        if (randomPiece != null)
+        {
+            randomPiece.GetComponent<GamePiece>().Init(this);
+            randomPiece.transform.parent = transform;
+
+            PlaceGamePiece(randomPiece.GetComponent<GamePiece>(), x, y);
+
+            return randomPiece.GetComponent<GamePiece>();
+        }
+
+        return null;
+    }
+
     private void FillRandom()
     {
+        int maxIterations = 100;
+        int iterations;
+
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                GameObject randomPiece =
-                    Instantiate<GameObject>(GetRandomGamePiece(), Vector3.zero, Quaternion.identity);
+                GamePiece piece = FillRandomAt(i, j);
+                iterations = 0;
 
-                if (randomPiece != null)
+                while (HasMatchOnFill(i, j))
                 {
-                    randomPiece.GetComponent<GamePiece>().Init(this);
-                    randomPiece.transform.parent = transform;
+                    ClearPieceAt(i, j);
+                    piece = FillRandomAt(i, j);
+                    iterations++;
 
-                    PlaceGamePiece(randomPiece.GetComponent<GamePiece>(), i, j);
+                    if (iterations >= maxIterations)
+                    {
+                        break;
+                    }
                 }
             }
         }
+    }
+
+    private bool HasMatchOnFill(int x, int y, int minLength = 3)
+    {
+        List<GamePiece> leftMatches = FindMatches(x, y, new Vector2(-1, 0), minLength);
+        List<GamePiece> downwardMatches = FindMatches(x, y, new Vector2(0, -1), minLength);
+
+        if (leftMatches == null)
+        {
+            leftMatches = new List<GamePiece>();
+        }
+
+        if (downwardMatches == null)
+        {
+            downwardMatches = new List<GamePiece>();
+        }
+
+        return leftMatches.Count > 0 || downwardMatches.Count > 0;
     }
 
     private void SwitchTiles(Tile clickedTile, Tile targetTile) =>
