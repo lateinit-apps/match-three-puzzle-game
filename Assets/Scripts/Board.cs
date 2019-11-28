@@ -32,7 +32,7 @@ public class Board : MonoBehaviour
         SetupTiles();
         SetupCamera();
 
-        FillRandom();
+        FillBoard(10, 0.5f);
     }
 
     private void SetupTiles()
@@ -78,7 +78,7 @@ public class Board : MonoBehaviour
         return gamePiecePrefabs[randomIndex];
     }
 
-    private GamePiece FillRandomAt(int x, int y)
+    private GamePiece FillRandomAt(int x, int y, int falseYOffest = 0, float moveTime = 0.1f)
     {
         GameObject randomPiece =
            Instantiate<GameObject>(GetRandomGamePiece(), Vector3.zero, Quaternion.identity);
@@ -90,13 +90,19 @@ public class Board : MonoBehaviour
 
             PlaceGamePiece(randomPiece.GetComponent<GamePiece>(), x, y);
 
+            if (falseYOffest != 0)
+            {
+                randomPiece.transform.position = new Vector3(x, y + falseYOffest, 0);
+                randomPiece.GetComponent<GamePiece>().Move(x, y, moveTime);
+            }
+
             return randomPiece.GetComponent<GamePiece>();
         }
 
         return null;
     }
 
-    private void FillRandom()
+    private void FillBoard(int falseYOffest = 0, float moveTime = 0.1f)
     {
         int maxIterations = 100;
         int iterations;
@@ -105,18 +111,21 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < height; j++)
             {
-                GamePiece piece = FillRandomAt(i, j);
-                iterations = 0;
-
-                while (HasMatchOnFill(i, j))
+                if (allGamePieces[i, j] == null)
                 {
-                    ClearPieceAt(i, j);
-                    piece = FillRandomAt(i, j);
-                    iterations++;
+                    GamePiece piece = FillRandomAt(i, j, falseYOffest, moveTime);
+                    iterations = 0;
 
-                    if (iterations >= maxIterations)
+                    while (HasMatchOnFill(i, j))
                     {
-                        break;
+                        ClearPieceAt(i, j);
+                        piece = FillRandomAt(i, j, falseYOffest, moveTime);
+                        iterations++;
+
+                        if (iterations >= maxIterations)
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -319,6 +328,22 @@ public class Board : MonoBehaviour
         return matches;
     }
 
+    private List<GamePiece> FindAllMatches()
+    {
+        List<GamePiece> combinedMatches = new List<GamePiece>();
+
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                List<GamePiece> matches = FindMatchesAt(i, j);
+                combinedMatches = combinedMatches.Union(matches).ToList();
+            }
+        }
+
+        return combinedMatches;
+    }
+
     private void HighlightTileOff(int x, int y)
     {
         SpriteRenderer spriteRenderer = allTiles[x, y].GetComponent<SpriteRenderer>();
@@ -451,7 +476,6 @@ public class Board : MonoBehaviour
         return movingPieces;
     }
 
-
     private List<int> GetColumns(List<GamePiece> gamePieces)
     {
         List<int> columns = new List<int>();
@@ -474,11 +498,22 @@ public class Board : MonoBehaviour
     {
         playerInputEnabled = false;
 
-        yield return StartCoroutine(ClearAndCollapseRoutine(gamePieces));
-        yield return null;
+        List<GamePiece> matches = gamePieces;
+
+        do
+        {
+            yield return StartCoroutine(ClearAndCollapseRoutine(gamePieces));
+            yield return null;
+            
+            yield return StartCoroutine(RefillRoutine());
+
+            matches = FindAllMatches();
+
+            yield return new WaitForSeconds(0.5f);
+        }
+        while (matches.Count != 0);
 
         playerInputEnabled = true;
-
     }
 
     private IEnumerator ClearAndCollapseRoutine(List<GamePiece> gamePieces)
@@ -535,6 +570,13 @@ public class Board : MonoBehaviour
         }
 
         return true;
+    }
+
+    private IEnumerator RefillRoutine()
+    {
+        FillBoard(10, 0.5f);
+
+        yield return null;
     }
 
     public void PlaceGamePiece(GamePiece gamePiece, int x, int y)
