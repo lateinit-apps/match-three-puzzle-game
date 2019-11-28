@@ -171,8 +171,8 @@ public class Board : MonoBehaviour
                 ClearPieceAt(clickedPieceMatches);
                 ClearPieceAt(targetPieceMatches);
 
-                // HighlightMatchesAt(clickedTile.xIndex, clickedTile.yIndex);
-                // HighlightMatchesAt(targetTile.xIndex, targetTile.yIndex);
+                CollapseColumn(clickedPieceMatches);
+                CollapseColumn(targetPieceMatches);
             }
         }
     }
@@ -376,6 +376,67 @@ public class Board : MonoBehaviour
                 ClearPieceAt(i, j);
             }
         }
+    }
+
+    private List<GamePiece> CollapseColumn(int column, float collapseTime = 0.1f)
+    {
+        List<GamePiece> movingPieces = new List<GamePiece>();
+
+        for (int i = 0; i < height - 1; i++)
+        {
+            if (allGamePieces[column, i] == null)
+            {
+                for (int j = i + 1; j < height; j++)
+                {
+                    if (allGamePieces[column, j] != null)
+                    {
+                        allGamePieces[column, j].Move(column, i, collapseTime);
+                        allGamePieces[column, i] = allGamePieces[column, j];
+                        allGamePieces[column, i].SetCoordinates(column, i);
+
+                        if (!movingPieces.Contains(allGamePieces[column, i]))
+                        {
+                            movingPieces.Add(allGamePieces[column, i]);
+                        }
+
+                        allGamePieces[column, j] = null;
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        return movingPieces;
+    }
+
+    private List<GamePiece> CollapseColumn(List<GamePiece> gamePieces)
+    {
+        List<GamePiece> movingPieces = new List<GamePiece>();
+        List<int> columnsToCollapse = GetColumns(gamePieces);
+
+        foreach (int column in columnsToCollapse)
+        {
+            movingPieces = movingPieces.Union(CollapseColumn(column)).ToList();
+        }
+
+        return movingPieces;
+    }
+
+
+    private List<int> GetColumns(List<GamePiece> gamePieces)
+    {
+        List<int> columns = new List<int>();
+
+        foreach (GamePiece piece in gamePieces)
+        {
+            if (!columns.Contains(piece.xIndex))
+            {
+                columns.Add(piece.xIndex);
+            }
+        }
+
+         return columns;
     }
 
     public void PlaceGamePiece(GamePiece gamePiece, int x, int y)
