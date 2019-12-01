@@ -34,7 +34,7 @@ public class Board : MonoBehaviour
 
         public int x;
         public int y;
-        public int z;    
+        public int z;
     }
 
     private void Start()
@@ -378,15 +378,21 @@ public class Board : MonoBehaviour
 
     private void HighlightTileOff(int x, int y)
     {
-        SpriteRenderer spriteRenderer = allTiles[x, y].GetComponent<SpriteRenderer>();
-        spriteRenderer.color = new Color(spriteRenderer.color.r,
-                                         spriteRenderer.color.g, spriteRenderer.color.b, 0);
+        if (allTiles[x, y].tileType != TileType.Breakable)
+        {
+            SpriteRenderer spriteRenderer = allTiles[x, y].GetComponent<SpriteRenderer>();
+            spriteRenderer.color = new Color(spriteRenderer.color.r,
+                                             spriteRenderer.color.g, spriteRenderer.color.b, 0);
+        }
     }
 
     private void HighlightTileOn(int x, int y, Color color)
     {
-        SpriteRenderer spriteRenderer = allTiles[x, y].GetComponent<SpriteRenderer>();
-        spriteRenderer.color = color;
+        if (allTiles[x, y].tileType != TileType.Breakable)
+        {
+            SpriteRenderer spriteRenderer = allTiles[x, y].GetComponent<SpriteRenderer>();
+            spriteRenderer.color = color;
+        }
     }
 
     private void HighlightMatchesAt(int x, int y)
@@ -459,6 +465,27 @@ public class Board : MonoBehaviour
             for (int j = 0; j < height; j++)
             {
                 ClearPieceAt(i, j);
+            }
+        }
+    }
+
+    private void BreakTileAt(int x, int y)
+    {
+        Tile tileToBreak = allTiles[x, y];
+
+        if (tileToBreak != null)
+        {
+            tileToBreak.BreakTile();
+        }
+    }
+
+    private void BreakTileAt(List<GamePiece> gamePieces)
+    {
+        foreach (GamePiece piece in gamePieces)
+        {
+            if (piece != null)
+            {
+                BreakTileAt(piece.xIndex, piece.yIndex);
             }
         }
     }
@@ -563,6 +590,7 @@ public class Board : MonoBehaviour
         while (!isFinished)
         {
             ClearPieceAt(gamePieces);
+            BreakTileAt(gamePieces);
 
             yield return new WaitForSeconds(0.25f);
 
