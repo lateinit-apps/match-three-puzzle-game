@@ -11,7 +11,8 @@ public class Board : MonoBehaviour
 
     public int borderSize;
 
-    public GameObject tilePrefab;
+    public GameObject tileNormalPrefab;
+    public GameObject tileObstaclePrefab;
     public GameObject[] gamePiecePrefabs;
 
     public float swapTime = 0.5f;
@@ -24,6 +25,18 @@ public class Board : MonoBehaviour
 
     private bool playerInputEnabled = true;
 
+    public StartingTile[] startingTiles;
+
+    [System.Serializable]
+    public class StartingTile
+    {
+        public GameObject tilePrefab;
+
+        public int x;
+        public int y;
+        public int z;    
+    }
+
     private void Start()
     {
         allTiles = new Tile[width, height];
@@ -35,21 +48,40 @@ public class Board : MonoBehaviour
         FillBoard(10, 0.5f);
     }
 
+    private void MakeTile(GameObject prefab, int x, int y, int z = 0)
+    {
+        if (prefab != null)
+        {
+            GameObject tile =
+                Instantiate<GameObject>(prefab, new Vector3(x, y, z), Quaternion.identity);
+            tile.name = "Tile (" + x + "," + y + ")";
+
+            allTiles[x, y] = tile.GetComponent<Tile>();
+
+            tile.transform.parent = transform;
+
+            allTiles[x, y].Init(x, y, this);
+        }
+    }
+
     private void SetupTiles()
     {
+        foreach (StartingTile startingTile in startingTiles)
+        {
+            if (startingTiles != null)
+            {
+                MakeTile(startingTile.tilePrefab, startingTile.x, startingTile.y, startingTile.z);
+            }
+        }
+
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                GameObject tile =
-                    Instantiate<GameObject>(tilePrefab, new Vector3(i, j, 0), Quaternion.identity);
-                tile.name = "Tile (" + i + "," + j + ")";
-
-                allTiles[i, j] = tile.GetComponent<Tile>();
-
-                tile.transform.parent = transform;
-
-                allTiles[i, j].Init(i, j, this);
+                if (allTiles[i, j] == null)
+                {
+                    MakeTile(tileNormalPrefab, i, j);
+                }
             }
         }
     }
@@ -111,7 +143,7 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < height; j++)
             {
-                if (allGamePieces[i, j] == null)
+                if (allGamePieces[i, j] == null && allTiles[i, j].tileType != TileType.Obstacle)
                 {
                     GamePiece piece = FillRandomAt(i, j, falseYOffest, moveTime);
                     iterations = 0;
@@ -437,7 +469,8 @@ public class Board : MonoBehaviour
 
         for (int i = 0; i < height - 1; i++)
         {
-            if (allGamePieces[column, i] == null)
+            if (allGamePieces[column, i] == null &&
+                allTiles[column, i].tileType != TileType.Obstacle)
             {
                 for (int j = i + 1; j < height; j++)
                 {
@@ -504,7 +537,7 @@ public class Board : MonoBehaviour
         {
             yield return StartCoroutine(ClearAndCollapseRoutine(gamePieces));
             yield return null;
-            
+
             yield return StartCoroutine(RefillRoutine());
 
             matches = FindAllMatches();
