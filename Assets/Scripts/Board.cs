@@ -27,6 +27,8 @@ public class Board : MonoBehaviour
 
     public StartingTile[] startingTiles;
 
+    private ParticleManager particleManager;
+
     [System.Serializable]
     public class StartingTile
     {
@@ -46,6 +48,8 @@ public class Board : MonoBehaviour
         SetupCamera();
 
         FillBoard(10, 0.5f);
+
+        particleManager = GameObject.FindWithTag("ParticleManager").GetComponent<ParticleManager>();
     }
 
     private void MakeTile(GameObject prefab, int x, int y, int z = 0)
