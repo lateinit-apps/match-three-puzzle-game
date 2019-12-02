@@ -75,7 +75,7 @@ public class Board : MonoBehaviour
     }
 
     private void MakeGamePiece(GameObject prefab, int x, int y,
-                          int falseYOffest = 0, float moveTime = 0.1f)
+                               int falseYOffest = 0, float moveTime = 0.1f)
     {
         if (prefab != null && IsWithinBounds(x, y))
         {
@@ -125,7 +125,7 @@ public class Board : MonoBehaviour
                     Instantiate<GameObject>(startingPiece.prefab,
                                             new Vector3(startingPiece.x, startingPiece.y, 0),
                                             Quaternion.identity);
-                
+
                 MakeGamePiece(piece, startingPiece.x, startingPiece.y, fillYOffset, fillMoveTime);
             }
         }
@@ -685,6 +685,55 @@ public class Board : MonoBehaviour
 
         yield return null;
     }
+
+    private List<GamePiece> GetRowPieces(int row)
+    {
+        List<GamePiece> gamePieces = new List<GamePiece>();
+
+        for (int i = 0; i < width; i++)
+        {
+            if (allGamePieces[i, row] != null)
+            {
+                gamePieces.Add(allGamePieces[i, row]);
+            }
+        }
+
+        return gamePieces;
+    }
+
+    private List<GamePiece> GetColumnPieces(int column)
+    {
+        List<GamePiece> gamePieces = new List<GamePiece>();
+
+        for (int i = 0; i < height; i++)
+        {
+            if (allGamePieces[column, i] != null)
+            {
+                gamePieces.Add(allGamePieces[column, i]);
+            }
+        }
+
+        return gamePieces;
+    }
+
+    private List<GamePiece> GetAdjacentPieces(int x, int y, int offset = 1)
+    {
+        List<GamePiece> gamePieces = new List<GamePiece>();
+
+        for (int i = x - offset; i <= x + offset; i++)
+        {
+            for (int j = y - offset; j <= y + offset; j++)
+            {
+                if (IsWithinBounds(i, j))
+                {
+                    gamePieces.Add(allGamePieces[i, j]);
+                }
+            }
+        }
+
+        return gamePieces;
+    }
+
 
     public void PlaceGamePiece(GamePiece gamePiece, int x, int y)
     {
