@@ -25,14 +25,18 @@ public class Board : MonoBehaviour
 
     private bool playerInputEnabled = true;
 
-    public StartingTile[] startingTiles;
+    public StartingObject[] startingTiles;
+    public StartingObject[] startingGamePieces;
 
     private ParticleManager particleManager;
 
+    public int fillYOffset = 10;
+    public float fillMoveTime = 0.5f;
+
     [System.Serializable]
-    public class StartingTile
+    public class StartingObject
     {
-        public GameObject tilePrefab;
+        public GameObject prefab;
 
         public int x;
         public int y;
@@ -45,16 +49,18 @@ public class Board : MonoBehaviour
         allGamePieces = new GamePiece[width, height];
 
         SetupTiles();
+        SetupGamePieces();
+
         SetupCamera();
 
-        FillBoard(10, 0.5f);
+        FillBoard(fillYOffset, fillMoveTime);
 
         particleManager = GameObject.FindWithTag("ParticleManager").GetComponent<ParticleManager>();
     }
 
     private void MakeTile(GameObject prefab, int x, int y, int z = 0)
     {
-        if (prefab != null)
+        if (prefab != null && IsWithinBounds(x, y))
         {
             GameObject tile =
                 Instantiate<GameObject>(prefab, new Vector3(x, y, z), Quaternion.identity);
@@ -68,13 +74,32 @@ public class Board : MonoBehaviour
         }
     }
 
+    private void MakeGamePiece(GameObject prefab, int x, int y,
+                          int falseYOffest = 0, float moveTime = 0.1f)
+    {
+        if (prefab != null && IsWithinBounds(x, y))
+        {
+            prefab.GetComponent<GamePiece>().Init(this);
+            prefab.transform.parent = transform;
+
+            PlaceGamePiece(prefab.GetComponent<GamePiece>(), x, y);
+
+            if (falseYOffest != 0)
+            {
+                prefab.transform.position = new Vector3(x, y + falseYOffest, 0);
+                prefab.GetComponent<GamePiece>().Move(x, y, moveTime);
+            }
+
+        }
+    }
+
     private void SetupTiles()
     {
-        foreach (StartingTile startingTile in startingTiles)
+        foreach (StartingObject startingTile in startingTiles)
         {
             if (startingTiles != null)
             {
-                MakeTile(startingTile.tilePrefab, startingTile.x, startingTile.y, startingTile.z);
+                MakeTile(startingTile.prefab, startingTile.x, startingTile.y, startingTile.z);
             }
         }
 
@@ -86,6 +111,22 @@ public class Board : MonoBehaviour
                 {
                     MakeTile(tileNormalPrefab, i, j);
                 }
+            }
+        }
+    }
+
+    private void SetupGamePieces()
+    {
+        foreach (StartingObject startingPiece in startingGamePieces)
+        {
+            if (startingPiece != null)
+            {
+                GameObject piece =
+                    Instantiate<GameObject>(startingPiece.prefab,
+                                            new Vector3(startingPiece.x, startingPiece.y, 0),
+                                            Quaternion.identity);
+                
+                MakeGamePiece(piece, startingPiece.x, startingPiece.y, fillYOffset, fillMoveTime);
             }
         }
     }
@@ -116,21 +157,12 @@ public class Board : MonoBehaviour
 
     private GamePiece FillRandomAt(int x, int y, int falseYOffest = 0, float moveTime = 0.1f)
     {
-        GameObject randomPiece =
-           Instantiate<GameObject>(GetRandomGamePiece(), Vector3.zero, Quaternion.identity);
-
-        if (randomPiece != null)
+        if (IsWithinBounds(x, y))
         {
-            randomPiece.GetComponent<GamePiece>().Init(this);
-            randomPiece.transform.parent = transform;
+            GameObject randomPiece =
+               Instantiate<GameObject>(GetRandomGamePiece(), Vector3.zero, Quaternion.identity);
 
-            PlaceGamePiece(randomPiece.GetComponent<GamePiece>(), x, y);
-
-            if (falseYOffest != 0)
-            {
-                randomPiece.transform.position = new Vector3(x, y + falseYOffest, 0);
-                randomPiece.GetComponent<GamePiece>().Move(x, y, moveTime);
-            }
+            MakeGamePiece(randomPiece, x, y, falseYOffest, moveTime);
 
             return randomPiece.GetComponent<GamePiece>();
         }
@@ -649,7 +681,7 @@ public class Board : MonoBehaviour
 
     private IEnumerator RefillRoutine()
     {
-        FillBoard(10, 0.5f);
+        FillBoard(fillYOffset, fillMoveTime);
 
         yield return null;
     }
