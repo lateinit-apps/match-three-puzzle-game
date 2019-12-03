@@ -614,7 +614,7 @@ MonoBehaviour:
   - prefab: {fileID: 1423395583817113760, guid: 1eb15e00893df1c4692c1f2211e68ff6,
       type: 3}
     x: 4
-    y: 57
+    y: 7
     z: 0
   fillYOffset: 10
   fillMoveTime: 0.5

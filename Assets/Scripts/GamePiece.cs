@@ -92,6 +92,25 @@ public class GamePiece : MonoBehaviour
         isMoving = false;
     }
 
+    public void ChangeColor(GamePiece pieceToMatch)
+    {
+        SpriteRenderer rendererToChange = GetComponent<SpriteRenderer>();
+
+        Color colorToMatch = Color.clear;
+
+        if (pieceToMatch != null)
+        {
+            SpriteRenderer rendererToMatch = pieceToMatch.GetComponent<SpriteRenderer>();
+
+            if (rendererToMatch != null && rendererToChange != null)
+            {
+                rendererToChange.color = rendererToMatch.color;
+            }
+
+            matchValue = pieceToMatch.matchValue;
+        }
+    }
+
     public void Init(Board board) => this.board = board;
 
     public void SetCoordinates(int x, int y)

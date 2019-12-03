@@ -281,6 +281,19 @@ public class Board : MonoBehaviour
                     targetTileBomb = DropBomb(targetTile.xIndex, targetTile.yIndex,
                                               swapDirection, targetPieceMatches);
 
+                    if (clickedTileBomb != null && targetPiece != null)
+                    {
+                        GamePiece clickedBombPiece = clickedTileBomb.GetComponent<GamePiece>();
+                        clickedBombPiece.ChangeColor(targetPiece);
+                    }
+
+                    if (targetTileBomb != null && clickedPiece != null)
+                    {
+                        GamePiece clickedBombPiece = targetTileBomb.GetComponent<GamePiece>();
+                        clickedBombPiece.ChangeColor(clickedPiece);
+                    }
+
+
                     ClearAndRefillBoard(clickedPieceMatches.Union(targetPieceMatches).ToList());
                 }
             }
