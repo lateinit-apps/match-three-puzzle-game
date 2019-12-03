@@ -570,17 +570,17 @@ MonoBehaviour:
     y: 5
     z: 1
   startingGamePieces:
-  - prefab: {fileID: 7302928498434684919, guid: e216f94bb87a36b47821c5595240f7e6,
+  - prefab: {fileID: 8952421566570598747, guid: d8a90d54758a9984e87198f395e5ea64,
       type: 3}
     x: 0
     y: 0
     z: 0
-  - prefab: {fileID: 7302928498434684919, guid: e216f94bb87a36b47821c5595240f7e6,
+  - prefab: {fileID: 8952421566570598747, guid: d8a90d54758a9984e87198f395e5ea64,
       type: 3}
     x: 0
     y: 1
     z: 0
-  - prefab: {fileID: 7302928498434684919, guid: e216f94bb87a36b47821c5595240f7e6,
+  - prefab: {fileID: 4099537680526558355, guid: a8c9b4533570cbf4788ee69ee51dc65a,
       type: 3}
     x: 1
     y: 2

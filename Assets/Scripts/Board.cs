@@ -635,6 +635,10 @@ public class Board : MonoBehaviour
 
         while (!isFinished)
         {
+            List<GamePiece> bombedPieces = GetBombedPieces(gamePieces);
+
+            gamePieces = gamePieces.Union(bombedPieces).ToList();
+
             ClearPieceAt(gamePieces);
             BreakTileAt(gamePieces);
 
@@ -734,6 +738,42 @@ public class Board : MonoBehaviour
         return gamePieces;
     }
 
+    private List<GamePiece> GetBombedPieces(List<GamePiece> gamePieces)
+    {
+        List<GamePiece> allPiecesToClear = new List<GamePiece>();
+
+        foreach (GamePiece piece in gamePieces)
+        {
+            if (piece != null)
+            {
+                List<GamePiece> piecesToClear = new List<GamePiece>();
+
+                Bomb bomb = piece.GetComponent<Bomb>();
+
+                if (bomb != null)
+                {
+                    switch (bomb.bombType)
+                    {
+                        case BombType.Column:
+                            piecesToClear = GetColumnPieces(bomb.xIndex);
+                            break;
+                        case BombType.Row:
+                            piecesToClear = GetRowPieces(bomb.yIndex);
+                            break;
+                        case BombType.Adjacent:
+                            piecesToClear = GetAdjacentPieces(bomb.xIndex, bomb.yIndex, 1);
+                            break;
+                        case BombType.Color:
+                            break;
+                    }
+
+                    allPiecesToClear = allPiecesToClear.Union(piecesToClear).ToList();
+                }
+            }
+        }
+
+        return allPiecesToClear;
+    }
 
     public void PlaceGamePiece(GamePiece gamePiece, int x, int y)
     {
