@@ -528,7 +528,7 @@ public class Board : MonoBehaviour
         // HighlightTileOff(x, y);
     }
 
-    private void ClearPieceAt(List<GamePiece> gamePieces)
+    private void ClearPieceAt(List<GamePiece> gamePieces, List<GamePiece> bombedPieces)
     {
         foreach (GamePiece piece in gamePieces)
         {
@@ -538,7 +538,14 @@ public class Board : MonoBehaviour
 
                 if (particleManager != null)
                 {
-                    particleManager.ClearPieceFXAt(piece.xIndex, piece.yIndex);
+                    if (bombedPieces.Contains(piece))
+                    {
+                        particleManager.BombFXAt(piece.xIndex, piece.yIndex);
+                    }
+                    else
+                    {
+                        particleManager.ClearPieceFXAt(piece.xIndex, piece.yIndex);
+                    }
                 }
             }
         }
@@ -685,9 +692,9 @@ public class Board : MonoBehaviour
             gamePieces = gamePieces.Union(bombedPieces).ToList();
 
             bombedPieces = GetBombedPieces(gamePieces);
-            gamePieces = gamePieces.Union(bombedPieces).ToList();   
+            gamePieces = gamePieces.Union(bombedPieces).ToList();
 
-            ClearPieceAt(gamePieces);
+            ClearPieceAt(gamePieces, bombedPieces);
             BreakTileAt(gamePieces);
 
             if (clickedTileBomb != null)
