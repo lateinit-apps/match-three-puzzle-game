@@ -2,6 +2,19 @@
 
 using UnityEngine;
 
+public enum MatchValue
+{
+    Blue,
+    Cyan,
+    Green,
+    Indigo,
+    Magenta,
+    Red,
+    Teal,
+    Yellow,
+    Wild
+}
+
 public class GamePiece : MonoBehaviour
 {
     public int xIndex;
@@ -19,19 +32,6 @@ public class GamePiece : MonoBehaviour
     }
 
     public MatchValue matchValue;
-
-    public enum MatchValue
-    {
-        Blue,
-        Cyan,
-        Green,
-        Indigo,
-        Magenta,
-        Red,
-        Teal,
-        Yellow,
-        Wild
-    }
 
     private bool isMoving = false;
 

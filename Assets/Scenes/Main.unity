@@ -540,6 +540,8 @@ MonoBehaviour:
     type: 3}
   rowBombPrefab: {fileID: 2984786532800428171, guid: b061b6dc91434b04ba97b65ff8280452,
     type: 3}
+  colorBombPrefab: {fileID: 3457832030078367483, guid: 76a5d147b8f080e42b866815b8004a1f,
+    type: 3}
   swapTime: 0.5
   startingTiles:
   - prefab: {fileID: 3106863875036564913, guid: ecd9f82480b402e449a3b270bbc39ce6,
@@ -578,45 +580,30 @@ MonoBehaviour:
     y: 5
     z: 1
   startingGamePieces:
-  - prefab: {fileID: 3771369649093596165, guid: 6b4881e4ca2bece43b8f253492d6a00f,
+  - prefab: {fileID: 1358002591198837667, guid: a691a26f2553a2347a0d30f39a7c8578,
       type: 3}
     x: 3
     y: 3
     z: 0
-  - prefab: {fileID: 3771369649093596165, guid: 6b4881e4ca2bece43b8f253492d6a00f,
+  - prefab: {fileID: 1358002591198837667, guid: a691a26f2553a2347a0d30f39a7c8578,
       type: 3}
     x: 3
     y: 4
     z: 0
-  - prefab: {fileID: 3771369649093596165, guid: 6b4881e4ca2bece43b8f253492d6a00f,
+  - prefab: {fileID: 1358002591198837667, guid: a691a26f2553a2347a0d30f39a7c8578,
       type: 3}
     x: 3
     y: 6
     z: 0
-  - prefab: {fileID: 3771369649093596165, guid: 6b4881e4ca2bece43b8f253492d6a00f,
+  - prefab: {fileID: 1358002591198837667, guid: a691a26f2553a2347a0d30f39a7c8578,
       type: 3}
-    x: 4
-    y: 5
-    z: 0
-  - prefab: {fileID: 3771369649093596165, guid: 6b4881e4ca2bece43b8f253492d6a00f,
-      type: 3}
-    x: 5
-    y: 4
-    z: 0
-  - prefab: {fileID: 3771369649093596165, guid: 6b4881e4ca2bece43b8f253492d6a00f,
-      type: 3}
-    x: 6
-    y: 4
-    z: 0
-  - prefab: {fileID: 3771369649093596165, guid: 6b4881e4ca2bece43b8f253492d6a00f,
-      type: 3}
-    x: 5
-    y: 5
-    z: 0
-  - prefab: {fileID: 1423395583817113760, guid: 1eb15e00893df1c4692c1f2211e68ff6,
-      type: 3}
-    x: 4
+    x: 3
     y: 7
+    z: 0
+  - prefab: {fileID: 1358002591198837667, guid: a691a26f2553a2347a0d30f39a7c8578,
+      type: 3}
+    x: 4
+    y: 5
     z: 0
   fillYOffset: 10
   fillMoveTime: 0.5
