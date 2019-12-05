@@ -795,7 +795,7 @@ public class Board : MonoBehaviour
             gamePieces = gamePieces.Union(bombedPieces).ToList();
 
             List<GamePiece> collectedPieces = FindCollectiblesAt(0);
-            
+
             collectibleCount -= collectedPieces.Count;
 
             gamePieces = gamePieces.Union(collectedPieces).ToList();
@@ -827,6 +827,8 @@ public class Board : MonoBehaviour
             yield return new WaitForSeconds(0.25f);
 
             matches = FindMatchesAt(movingPieces);
+            collectedPieces = FindCollectiblesAt(0);
+            matches = matches.Union(collectedPieces).ToList();
 
             if (matches.Count == 0)
             {
@@ -941,6 +943,7 @@ public class Board : MonoBehaviour
                     }
 
                     allPiecesToClear = allPiecesToClear.Union(piecesToClear).ToList();
+                    allPiecesToClear = RemoveCollectibles(allPiecesToClear);
                 }
             }
         }
@@ -1085,6 +1088,27 @@ public class Board : MonoBehaviour
 
     private bool CanAddCollectible() => Random.Range(0f, 1f) <= chanceForCollectible &&
         collectiblePrefabs.Length > 0 && collectibleCount < maxCollectibles;
+
+    private List<GamePiece> RemoveCollectibles(List<GamePiece> bombedPieces)
+    {
+        List<GamePiece> collectiblePieces = FindAllCollectibles();
+        List<GamePiece> piecesToRemove = new List<GamePiece>();
+
+        foreach (GamePiece piece in collectiblePieces)
+        {
+            Collectible collectibleComponent = piece.GetComponent<Collectible>();
+
+            if (collectibleComponent != null)
+            {
+                if (!collectibleComponent.clearedByBomb)
+                {
+                    piecesToRemove.Add(piece);
+                }
+            }
+        }
+
+        return bombedPieces.Except(piecesToRemove).ToList();
+    }
 
     public void PlaceGamePiece(GamePiece gamePiece, int x, int y)
     {
