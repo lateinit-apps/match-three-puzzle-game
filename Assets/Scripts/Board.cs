@@ -331,6 +331,12 @@ public class Board : MonoBehaviour
                 }
                 else
                 {
+                    if (GameManager.Instance != null)
+                    {
+                        GameManager.Instance.movesLeft--;
+                        GameManager.Instance.UpdateMoves();
+                    }
+
                     yield return new WaitForSeconds(swapTime);
 
                     Vector2 swapDirection = new Vector2(targetTile.xIndex - clickedTile.xIndex,
@@ -360,7 +366,6 @@ public class Board : MonoBehaviour
                             clickedBombPiece.ChangeColor(clickedPiece);
                         }
                     }
-
 
                     ClearAndRefillBoard(clickedPieceMatches
                                         .Union(targetPieceMatches).ToList()
