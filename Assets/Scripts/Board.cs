@@ -23,6 +23,14 @@ public class Board : MonoBehaviour
     private GameObject clickedTileBomb;
     private GameObject targetTileBomb;
 
+    public int maxCollectibles = 3;
+    public int collectibleCount = 0;
+
+    [Range(0, 1)]
+    public float chanceForCollectible = 0.1f;
+
+    public GameObject[] collectiblePrefabs;
+
     public float swapTime = 0.5f;
 
     private Tile[,] allTiles;
@@ -58,6 +66,9 @@ public class Board : MonoBehaviour
 
         SetupTiles();
         SetupGamePieces();
+
+        List<GamePiece> startingCollectibles = FindAllCollectibles();
+        collectibleCount = startingCollectibles.Count;
 
         SetupCamera();
 
@@ -384,7 +395,8 @@ public class Board : MonoBehaviour
             }
             else
             {
-                if (nextPiece.matchValue == startPiece.matchValue && !matches.Contains(nextPiece))
+                if (nextPiece.matchValue == startPiece.matchValue && !matches.Contains(nextPiece) &&
+                    nextPiece.matchValue != MatchValue.None)
                 {
                     matches.Add(nextPiece);
                 }
@@ -998,6 +1010,39 @@ public class Board : MonoBehaviour
         }
 
         return false;
+    }
+
+    private List<GamePiece> FindCollectiblesAt(int row)
+    {
+        List<GamePiece> foundCollectibles = new List<GamePiece>();
+
+        for (int i = 0; i < width; i++)
+        {
+            if (allGamePieces[i, row] != null)
+            {
+                Collectible collectibleComponent = allGamePieces[i, row].GetComponent<Collectible>();
+
+                if (collectibleComponent != null)
+                {
+                    foundCollectibles.Add(allGamePieces[i, row]);
+                }
+            }
+        }
+
+        return foundCollectibles;
+    }
+
+    private List<GamePiece> FindAllCollectibles()
+    {
+        List<GamePiece> foundCollectibles = new List<GamePiece>();
+
+        for (int i = 0; i < height; i++)
+        {
+            List<GamePiece> collectibleRow = FindCollectiblesAt(i);
+            foundCollectibles = foundCollectibles.Union(collectibleRow).ToList();
+        }
+
+        return foundCollectibles;
     }
 
     public void PlaceGamePiece(GamePiece gamePiece, int x, int y)
