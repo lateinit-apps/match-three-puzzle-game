@@ -253,6 +253,7 @@ GameObject:
   - component: {fileID: 125198368}
   - component: {fileID: 125198367}
   - component: {fileID: 125198369}
+  - component: {fileID: 125198370}
   m_Layer: 5
   m_Name: MessageWindow
   m_TagString: Untagged
@@ -332,6 +333,22 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 20, y: -20}
   m_UseGraphicAlpha: 1
+--- !u!114 &125198370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125198365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 159738ba3cc17c840ad92211113f8c89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPosition: {x: 0, y: 1500, z: 0}
+  onscreenPosition: {x: 0, y: 0, z: 0}
+  endPosition: {x: 0, y: -1500, z: 0}
+  timeToMove: 1
 --- !u!1 &206295211
 GameObject:
   m_ObjectHideFlags: 0
