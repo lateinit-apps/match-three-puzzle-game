@@ -66,16 +66,6 @@ public class Board : MonoBehaviour
         allTiles = new Tile[width, height];
         allGamePieces = new GamePiece[width, height];
 
-        SetupTiles();
-        SetupGamePieces();
-
-        List<GamePiece> startingCollectibles = FindAllCollectibles();
-        collectibleCount = startingCollectibles.Count;
-
-        SetupCamera();
-
-        FillBoard(fillYOffset, fillMoveTime);
-
         particleManager = GameObject.FindWithTag("ParticleManager").GetComponent<ParticleManager>();
     }
 
@@ -768,7 +758,7 @@ public class Board : MonoBehaviour
         playerInputEnabled = false;
 
         List<GamePiece> matches = gamePieces;
-        
+
         scoreMultiplier = 0;
 
         do
@@ -1177,5 +1167,18 @@ public class Board : MonoBehaviour
             clickedTile = null;
             targetTile = null;
         }
+    }
+
+    public void SetupBoard()
+    {
+        SetupTiles();
+        SetupGamePieces();
+
+        List<GamePiece> startingCollectibles = FindAllCollectibles();
+        collectibleCount = startingCollectibles.Count;
+
+        SetupCamera();
+
+        FillBoard(fillYOffset, fillMoveTime);
     }
 }
