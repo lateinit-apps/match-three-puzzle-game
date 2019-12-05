@@ -34,6 +34,8 @@ public class GamePiece : MonoBehaviour
 
     public MatchValue matchValue;
 
+    public int scoreValue = 20;
+
     private bool isMoving = false;
 
     private Board board;
@@ -125,6 +127,14 @@ public class GamePiece : MonoBehaviour
         if (!isMoving)
         {
             StartCoroutine(MoveRoutine(new Vector3(destinationX, destinationY, 0), timeToMove));
+        }
+    }
+
+    public void ScorePoints(int multiplier = 1, int bonus = 0)
+    {
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.AddScore(scoreValue * multiplier + bonus);
         }
     }
 }
