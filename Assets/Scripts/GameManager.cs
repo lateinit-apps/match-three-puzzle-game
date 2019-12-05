@@ -80,6 +80,15 @@ public class GameManager : Singleton<GameManager>
     {
         while (!isGameOver)
         {
+            if (ScoreManager.Instance != null)
+            {
+                if (ScoreManager.Instance.CurrentScore >= scoreGoal)
+                {
+                    isGameOver = true;
+                    isWinner = true;
+                }
+            }
+
             if (movesLeft == 0)
             {
                 isGameOver = true;
@@ -93,11 +102,6 @@ public class GameManager : Singleton<GameManager>
     private IEnumerator EndGameRoutine()
     {
         isReadyToReload = false;
-
-        if (screenFader != null)
-        {
-            screenFader.FadeOn();
-        }
 
         if (isWinner)
         {
@@ -114,6 +118,13 @@ public class GameManager : Singleton<GameManager>
                 messageWindow.GetComponent<RectXformMover>().MoveOn();
                 messageWindow.ShowMessage(loseIcon, "YOU LOSE!", "OK");
             }
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        if (screenFader != null)
+        {
+            screenFader.FadeOn();
         }
 
         while (!isReadyToReload)

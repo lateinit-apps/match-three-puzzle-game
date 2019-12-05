@@ -5,6 +5,11 @@ using UnityEngine.UI;
 public class ScoreManager : Singleton<ScoreManager>
 {
     private int currentScore = 0;
+    public int CurrentScore
+    {
+        get => currentScore;
+    }
+
     private int counterValue = 0;
     private int increment = 5;
 
