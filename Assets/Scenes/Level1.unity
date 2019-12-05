@@ -237,10 +237,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movesLeft: 30
-  scoreGoal: 10000
+  scoreGoal: 2000
   screenFader: {fileID: 1908654262}
   levelNameText: {fileID: 545264845}
   movesLeftText: {fileID: 712793203}
+  messageWindow: {fileID: 125198371}
+  loseIcon: {fileID: 21300000, guid: 24b5b6b7f7200934faf26c42a5f6d053, type: 3}
+  winIcon: {fileID: 21300000, guid: 3afd2b23813a60747a346ba3991633c8, type: 3}
+  goalIcon: {fileID: 21300000, guid: 8e02eb9b31b34bf4893e4068131057b4, type: 3}
 --- !u!1 &125198365
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,6 +258,7 @@ GameObject:
   - component: {fileID: 125198367}
   - component: {fileID: 125198369}
   - component: {fileID: 125198370}
+  - component: {fileID: 125198371}
   m_Layer: 5
   m_Name: MessageWindow
   m_TagString: Untagged
@@ -349,6 +354,21 @@ MonoBehaviour:
   onscreenPosition: {x: 0, y: 0, z: 0}
   endPosition: {x: 0, y: -1500, z: 0}
   timeToMove: 1
+--- !u!114 &125198371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125198365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e06544f5d08df8e4280817edd0c6c8f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageIcon: {fileID: 69767160}
+  messageText: {fileID: 282993678}
+  buttonText: {fileID: 1026165193}
 --- !u!1 &206295211
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +588,7 @@ GameObject:
   - component: {fileID: 520056557}
   - component: {fileID: 520056556}
   m_Layer: 5
-  m_Name: StartButton
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -636,7 +656,40 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 520056557}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 119837730}
+        m_MethodName: BeginGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 125198370}
+        m_MethodName: MoveOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 119837730}
+        m_MethodName: ReloadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &520056557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -919,7 +972,7 @@ RectTransform:
   - {fileID: 1880083828}
   - {fileID: 125198366}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1241,7 +1294,7 @@ GameObject:
   - component: {fileID: 1026165194}
   - component: {fileID: 1026165193}
   m_Layer: 5
-  m_Name: StartText
+  m_Name: ButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1370,7 +1423,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1211330240
 GameObject:
@@ -1615,7 +1668,7 @@ RectTransform:
   - {fileID: 1556334706}
   - {fileID: 822658461}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1779,7 +1832,7 @@ Transform:
   - {fileID: 206295212}
   - {fileID: 119837729}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1908654258
 GameObject:

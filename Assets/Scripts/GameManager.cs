@@ -10,15 +10,22 @@ public class GameManager : Singleton<GameManager>
     public int scoreGoal = 10000;
 
     public ScreenFader screenFader;
-    
+
     public Text levelNameText;
     public Text movesLeftText;
 
     private Board board;
 
     private bool isReadyToBegin = false;
+    private bool isReadyToReload = false;
     private bool isGameOver = false;
     private bool isWinner = false;
+
+    public MessageWindow messageWindow;
+
+    public Sprite loseIcon;
+    public Sprite winIcon;
+    public Sprite goalIcon;
 
     private void Start()
     {
@@ -45,12 +52,15 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator StartGameRoutine()
     {
+        if (messageWindow != null)
+        {
+            messageWindow.GetComponent<RectXformMover>().MoveOn();
+            messageWindow.ShowMessage(goalIcon, "score goal\n" + scoreGoal.ToString(), "start");
+        }
+
         while (!isReadyToBegin)
         {
             yield return null;
-            yield return new WaitForSeconds(1f);
-
-            isReadyToBegin = true;
         }
 
         if (screenFader != null)
@@ -82,6 +92,8 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator EndGameRoutine()
     {
+        isReadyToReload = false;
+
         if (screenFader != null)
         {
             screenFader.FadeOn();
@@ -89,14 +101,27 @@ public class GameManager : Singleton<GameManager>
 
         if (isWinner)
         {
-
+            if (messageWindow != null)
+            {
+                messageWindow.GetComponent<RectXformMover>().MoveOn();
+                messageWindow.ShowMessage(winIcon, "YOU WIN!", "OK");
+            }
         }
         else
         {
-
+            if (messageWindow != null)
+            {
+                messageWindow.GetComponent<RectXformMover>().MoveOn();
+                messageWindow.ShowMessage(loseIcon, "YOU LOSE!", "OK");
+            }
         }
 
-        yield return null;
+        while (!isReadyToReload)
+        {
+            yield return null;
+        }
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void UpdateMoves()
@@ -106,4 +131,8 @@ public class GameManager : Singleton<GameManager>
             movesLeftText.text = movesLeft.ToString();
         }
     }
+
+    public void BeginGame() => isReadyToBegin = true;
+
+    public void ReloadScene() => isReadyToReload = true;
 }

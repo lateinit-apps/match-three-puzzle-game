@@ -15,14 +15,11 @@ public class RectXformMover : MonoBehaviour
 
     private bool isMoving;
 
-    private void Awake()
-    {
-        rectXform = GetComponent<RectTransform>();
-    }
+    private void Awake() => rectXform = GetComponent<RectTransform>();
 
     private void Move(Vector3 startPosition, Vector3 endPosition, float timeToMove)
     {
-        if (isMoving)
+        if (!isMoving)
         {
             StartCoroutine(MoveRoutine(startPosition, endPosition, timeToMove));
         }
