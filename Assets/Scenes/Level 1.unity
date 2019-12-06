@@ -2014,8 +2014,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 8
-  height: 9
-  borderSize: 2
+  height: 8
+  borderSize: 1
   tileNormalPrefab: {fileID: 501335393471126614, guid: aa46a61736813a0459293c0997caa5a1,
     type: 3}
   tileObstaclePrefab: {fileID: 3915861940927109839, guid: 7396f1d4a2b3e7643bc2a8468c914b7f,
