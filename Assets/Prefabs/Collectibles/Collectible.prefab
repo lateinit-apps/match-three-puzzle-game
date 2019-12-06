@@ -98,5 +98,6 @@ MonoBehaviour:
   interpolation: 4
   matchValue: 9
   scoreValue: 200
+  clearSound: {fileID: 8300000, guid: b1e6e75baf8f04ae59f52e341161f1a9, type: 3}
   clearedByBomb: 0
   clearedAtBottom: 1

@@ -236,8 +236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b0f50e746e80a42bc34c6648a313c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movesLeft: 10
-  scoreGoal: 500
+  movesLeft: 25
+  scoreGoal: 5000
   screenFader: {fileID: 1908654262}
   levelNameText: {fileID: 545264845}
   movesLeftText: {fileID: 712793203}
@@ -2042,27 +2042,7 @@ MonoBehaviour:
   - {fileID: 4388395974819596155, guid: 1652617feffa1804c98ae7e1cd591ae8, type: 3}
   swapTime: 0.5
   startingTiles: []
-  startingGamePieces:
-  - prefab: {fileID: 4388395974819596155, guid: 1652617feffa1804c98ae7e1cd591ae8,
-      type: 3}
-    x: 4
-    y: 8
-    z: 0
-  - prefab: {fileID: 7093500701994422404, guid: ecd0ee068874c2b41ac7ce03932327c8,
-      type: 3}
-    x: 4
-    y: 5
-    z: 0
-  - prefab: {fileID: 3771369649093596165, guid: 6b4881e4ca2bece43b8f253492d6a00f,
-      type: 3}
-    x: 4
-    y: 4
-    z: 0
-  - prefab: {fileID: 3771369649093596165, guid: 6b4881e4ca2bece43b8f253492d6a00f,
-      type: 3}
-    x: 5
-    y: 6
-    z: 0
+  startingGamePieces: []
   fillYOffset: 10
   fillMoveTime: 0.5
 --- !u!4 &1967314777

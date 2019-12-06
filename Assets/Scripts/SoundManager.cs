@@ -65,9 +65,9 @@ public class SoundManager : Singleton<SoundManager>
 
     public void PlayRandomMusic() => PlayRandom(musicClips, Vector3.zero, musicVolume);
 
-    public void PlayWinSound() => PlayRandom(winClips, Vector3.zero, musicVolume);
+    public void PlayWinSound() => PlayRandom(winClips, Vector3.zero, fxVolume);
 
-    public void PlayLoseSound() => PlayRandom(loseClips, Vector3.zero, musicVolume);
+    public void PlayLoseSound() => PlayRandom(loseClips, Vector3.zero, fxVolume * 0.5f);
 
-    public void PlayBonusSound() => PlayRandom(bonusClips, Vector3.zero, musicVolume);
+    public void PlayBonusSound() => PlayRandom(bonusClips, Vector3.zero, fxVolume);
 }

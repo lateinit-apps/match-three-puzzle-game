@@ -853,6 +853,11 @@ public class Board : MonoBehaviour
             {
                 scoreMultiplier++;
 
+                if (SoundManager.Instance != null)
+                {
+                    SoundManager.Instance.PlayBonusSound();
+                }
+
                 yield return StartCoroutine(ClearAndCollapseRoutine(matches));
             }
         }

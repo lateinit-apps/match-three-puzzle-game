@@ -40,6 +40,8 @@ public class GamePiece : MonoBehaviour
 
     private Board board;
 
+    public AudioClip clearSound;
+
     private IEnumerator MoveRoutine(Vector3 destination, float timeToMove)
     {
         Vector3 startPosition = transform.position;
@@ -135,6 +137,12 @@ public class GamePiece : MonoBehaviour
         if (ScoreManager.Instance != null)
         {
             ScoreManager.Instance.AddScore(scoreValue * multiplier + bonus);
+        }
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayClipAtPoint(clearSound, Vector3.zero,
+                                                  SoundManager.Instance.fxVolume);
         }
     }
 }
