@@ -843,10 +843,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be8da12d8a47844eb958b57da2977f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicClips: []
-  winClips: []
-  loseClips: []
-  bonusClips: []
+  musicClips:
+  - {fileID: 8300000, guid: b137f664b913183439c819a985015aec, type: 3}
+  - {fileID: 8300000, guid: ced41fb7f5a699e438d12f81addf96eb, type: 3}
+  winClips:
+  - {fileID: 8300000, guid: b43b2e7180aa04f788c269504edc72de, type: 3}
+  - {fileID: 8300000, guid: 5f9fb0bfcf06e4304aab13b97645fe13, type: 3}
+  loseClips:
+  - {fileID: 8300000, guid: ed4ad50d33af142e6be4b65f4d37e37c, type: 3}
+  bonusClips:
+  - {fileID: 8300000, guid: 56e813bd88354448fb9f0a52536449a1, type: 3}
+  - {fileID: 8300000, guid: eadcfb9a0c2cb4bea8112ac470640c8e, type: 3}
+  - {fileID: 8300000, guid: 6dce900c6b57748dbb2ee112588b2bd9, type: 3}
   musicVolume: 0.5
   fxVolume: 1
   lowPitch: 0.95
