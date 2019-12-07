@@ -1611,12 +1611,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.17254902, g: 0.08627451, b: 0.2784314, a: 1}
+  m_Color: {r: 0.24777503, g: 0.34222358, b: 0.6037736, a: 0.64705884}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ce625e4392f72a548b9c875abd7dd8b4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2024,22 +2024,40 @@ MonoBehaviour:
   - {fileID: 1836425604369276, guid: 7471f6d24260942c499dd3fbbeccadc6, type: 3}
   - {fileID: 1282329895864240, guid: 16eff60049fa742e09c4e037182057a2, type: 3}
   - {fileID: 1372902284518312, guid: ddd7ecb364d034ad295c2ea9c8df1999, type: 3}
-  - {fileID: 1664362004353522, guid: ded3823fda2b64d07a29783e0ce9acc9, type: 3}
+  - {fileID: 1161606897531048, guid: 805c5ac8742f1457bb6137a92eef3032, type: 3}
   - {fileID: 1764584299026588, guid: d25f2e53e91ce49bd99d368bec39987a, type: 3}
-  adjacentBombPrefab: {fileID: 8976348961899306391, guid: 7dbf2273efd62c1469623c83964dd0f3,
-    type: 3}
-  columnBombPrefab: {fileID: 4099537680526558355, guid: a8c9b4533570cbf4788ee69ee51dc65a,
-    type: 3}
-  rowBombPrefab: {fileID: 2984786532800428171, guid: b061b6dc91434b04ba97b65ff8280452,
-    type: 3}
+  adjacentBombPrefabs:
+  - {fileID: 5827077410932982993, guid: 1dc7b4a635eee4b549f0814d0edb9f96, type: 3}
+  - {fileID: 781884012999008152, guid: d1b9bd69ce20946238d78d959914a26e, type: 3}
+  - {fileID: 5097626319435681014, guid: 906f49d97f93b477489bd1849f2fb8c1, type: 3}
+  - {fileID: 6037378399247188366, guid: fdbb51f6ad6d845aab3b4d2d03abd482, type: 3}
+  - {fileID: 1891322291564892344, guid: a03dc1ba3686c43249803d14a0fd5ac1, type: 3}
+  - {fileID: 5317955107364090456, guid: 419acdcadc50a4c448bf98d63ff96eb6, type: 3}
+  - {fileID: 8778480785993124502, guid: a64e048dc8a8c42e6a7b2a2bf782fe2e, type: 3}
+  columnBombPrefabs:
+  - {fileID: 4528302650546996876, guid: ad3338ded80f54cf2bd1bea0c0fb442a, type: 3}
+  - {fileID: 8031294084089734355, guid: 4a41b0bcc2bb04fcea7fb556dfb6414d, type: 3}
+  - {fileID: 250267543379770790, guid: 19a7732910c9c477faa1817d9173ac70, type: 3}
+  - {fileID: 2294983862587522968, guid: f4570d1955bf44e5a965b20e1e4c0784, type: 3}
+  - {fileID: 3525527860402004727, guid: 50f67aa52721c432292ab73e8c66e029, type: 3}
+  - {fileID: 1422887253116560239, guid: b16155b21296c413ca8ae934bdb52497, type: 3}
+  - {fileID: 1856650994923478203, guid: 33250037397c5421aa15ccfbad07bc81, type: 3}
+  rowBombPrefabs:
+  - {fileID: 7022801344035554088, guid: 622c9ee5c4d1549b88e79b05f6b0f66a, type: 3}
+  - {fileID: 630675509385251635, guid: 6f4de61a3d8da4e15b79a7404c1c644b, type: 3}
+  - {fileID: 193609001658133542, guid: 904197c7b70654987882987758dc32e6, type: 3}
+  - {fileID: 6601780925218130635, guid: 9c5823e577fcb4da09754ec71ead0d63, type: 3}
+  - {fileID: 7345757277636657780, guid: 0c945f22ccdb94d759ebc151932a5581, type: 3}
+  - {fileID: 2225648774340688261, guid: 5207ba130b8b3488fb3a9a1b290d0efb, type: 3}
+  - {fileID: 5453963106401854514, guid: 27d221c0220a340f9b8f7d8b7fcb5a25, type: 3}
   colorBombPrefab: {fileID: 1000013338762844, guid: 1a1602c69ff0542d7905e28330aca523,
     type: 3}
   maxCollectibles: 4
   collectibleCount: 0
   chanceForCollectible: 0.1
   collectiblePrefabs:
-  - {fileID: 2510560809961003537, guid: ebe7c08de4a0172418902c6d827b2511, type: 3}
-  - {fileID: 4388395974819596155, guid: 1652617feffa1804c98ae7e1cd591ae8, type: 3}
+  - {fileID: 1000010844454024, guid: 3cc39e0b689e449179a99ac4144c4d3c, type: 3}
+  - {fileID: 1000011192920742, guid: 39d7e8803a8074f13adfcbe5567fefca, type: 3}
   swapTime: 0.5
   startingTiles: []
   startingGamePieces: []
