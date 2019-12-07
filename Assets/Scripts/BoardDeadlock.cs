@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BoardDeadlock : MonoBehaviour
 {
-    List<GamePiece> GetRowOrColumnList(GamePiece[,] allPieces, int x, int y,
+    private List<GamePiece> GetRowOrColumnList(GamePiece[,] allPieces, int x, int y,
                                        int listLength = 3, bool checkRow = true)
     {
         int width = allPieces.GetLength(0);
@@ -34,7 +34,7 @@ public class BoardDeadlock : MonoBehaviour
         return piecesList;
     }
 
-    List<GamePiece> GetMinimumMatches(List<GamePiece> gamePieces, int minForMatch = 2)
+    private List<GamePiece> GetMinimumMatches(List<GamePiece> gamePieces, int minForMatch = 2)
     {
         List<GamePiece> matches = new List<GamePiece>();
 
@@ -51,7 +51,7 @@ public class BoardDeadlock : MonoBehaviour
         return matches;
     }
 
-    List<GamePiece> GetNeighbours(GamePiece[,] allPieces, int x, int y)
+    private List<GamePiece> GetNeighbours(GamePiece[,] allPieces, int x, int y)
     {
         int width = allPieces.GetLength(0);
         int height = allPieces.GetLength(1);
@@ -84,4 +84,71 @@ public class BoardDeadlock : MonoBehaviour
         return neighbours;
     }
 
+    private bool HasMoveAt(GamePiece[,] allPieces, int x, int y,
+                           int listLength = 3, bool checkRow = true)
+    {
+        List<GamePiece> pieces = GetRowOrColumnList(allPieces, x, y, listLength, checkRow);
+        List<GamePiece> matches = GetMinimumMatches(pieces, listLength - 1);
+
+        GamePiece unmatchedPiece = null;
+
+        if (pieces != null && matches != null)
+        {
+            if (pieces.Count == listLength && matches.Count == listLength - 1)
+            {
+                unmatchedPiece = pieces.Except(matches).FirstOrDefault();
+            }
+
+            if (unmatchedPiece != null)
+            {
+                List<GamePiece> neighbours =
+                    GetNeighbours(allPieces, unmatchedPiece.xIndex, unmatchedPiece.yIndex);
+
+                neighbours = neighbours.Except(matches).ToList();
+                neighbours = neighbours.FindAll(n => n.matchValue == matches[0].matchValue);
+
+                matches = matches.Union(neighbours).ToList();
+            }
+
+            if (matches.Count >= listLength)
+            {
+                string rowColumnString = checkRow ? "row" : "column";
+
+                Debug.Log("Available move: " + matches[0].matchValue + " piece to " +
+                          unmatchedPiece.xIndex + ", " + unmatchedPiece.yIndex +
+                          " to form matching " + rowColumnString);
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool IsDeadlocked(GamePiece[,] allPieces, int listLength = 3)
+    {
+        int width = allPieces.GetLength(0);
+        int height = allPieces.GetLength(1);
+
+        bool isDeadlocked = true;
+
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                if (HasMoveAt(allPieces, i, j, listLength, true) ||
+                    HasMoveAt(allPieces, i, j, listLength, false))
+                {
+                    isDeadlocked = false;
+                }
+            }
+        }
+
+        if (isDeadlocked)
+        {
+            Debug.Log("Board is deadlocked!");
+        }
+
+        return isDeadlocked;
+    }
 }

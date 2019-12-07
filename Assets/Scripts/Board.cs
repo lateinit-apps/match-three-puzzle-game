@@ -1261,4 +1261,6 @@ public class Board : MonoBehaviour
 
         FillBoard(fillYOffset, fillMoveTime);
     }
+
+    public void TestDeadlock() => boardDeadlock.IsDeadlocked(allGamePieces, 3);
 }
