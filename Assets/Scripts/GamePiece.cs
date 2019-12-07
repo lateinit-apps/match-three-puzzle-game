@@ -9,6 +9,8 @@ public enum MatchValue
     Green,
     Indigo,
     Magenta,
+    Purple,
+    Orange,
     Red,
     Teal,
     Yellow,
