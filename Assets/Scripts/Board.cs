@@ -234,22 +234,20 @@ public class Board : MonoBehaviour
             {
                 if (allGamePieces[i, j] == null && allTiles[i, j].tileType != TileType.Obstacle)
                 {
-                    GamePiece piece = null;
-
                     if (j == height - 1 && CanAddCollectible())
                     {
-                        piece = FillRandomCollectibleAt(i, j, falseYOffest, moveTime);
+                        FillRandomCollectibleAt(i, j, falseYOffest, moveTime);
                         collectibleCount++;
                     }
                     else
                     {
-                        piece = FillRandomGamePieceAt(i, j, falseYOffest, moveTime);
+                        FillRandomGamePieceAt(i, j, falseYOffest, moveTime);
                         iterations = 0;
 
                         while (HasMatchOnFill(i, j))
                         {
                             ClearPieceAt(i, j);
-                            piece = FillRandomGamePieceAt(i, j, falseYOffest, moveTime);
+                            FillRandomGamePieceAt(i, j, falseYOffest, moveTime);
                             iterations++;
 
                             if (iterations >= maxIterations)
@@ -742,19 +740,16 @@ public class Board : MonoBehaviour
         return movingPieces;
     }
 
-    private List<int> GetColumns(List<GamePiece> gamePieces)
+    private List<GamePiece> CollapseColumn(List<int> columnsToCollapse)
     {
-        List<int> columns = new List<int>();
+        List<GamePiece> movingPieces = new List<GamePiece>();
 
-        foreach (GamePiece piece in gamePieces)
+        foreach (int column in columnsToCollapse)
         {
-            if (!columns.Contains(piece.xIndex))
-            {
-                columns.Add(piece.xIndex);
-            }
+            movingPieces = movingPieces.Union(CollapseColumn(column)).ToList();
         }
 
-        return columns;
+        return movingPieces;
     }
 
     private void ClearAndRefillBoard(List<GamePiece> gamePieces) =>
@@ -818,6 +813,8 @@ public class Board : MonoBehaviour
 
             gamePieces = gamePieces.Union(collectedPieces).ToList();
 
+            List<int> columnsToCollapse = GetColumns(gamePieces);
+
             ClearPieceAt(gamePieces, bombedPieces);
             BreakTileAt(gamePieces);
 
@@ -835,7 +832,7 @@ public class Board : MonoBehaviour
 
             yield return new WaitForSeconds(0.25f);
 
-            movingPieces = CollapseColumn(gamePieces);
+            movingPieces = CollapseColumn(columnsToCollapse);
 
             while (!IsCollapsed(movingPieces))
             {
@@ -918,6 +915,24 @@ public class Board : MonoBehaviour
         }
 
         return gamePieces;
+    }
+
+    private List<int> GetColumns(List<GamePiece> gamePieces)
+    {
+        List<int> columns = new List<int>();
+
+        foreach (GamePiece piece in gamePieces)
+        {
+            if (piece != null)
+            {
+                if (!columns.Contains(piece.xIndex))
+                {
+                    columns.Add(piece.xIndex);
+                }
+            }
+        }
+
+        return columns;
     }
 
     private List<GamePiece> GetAdjacentPieces(int x, int y, int offset = 1)
