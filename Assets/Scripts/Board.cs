@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+[RequireComponent(typeof(BoardDeadlock))]
 public class Board : MonoBehaviour
 {
     public int width;
@@ -53,6 +54,7 @@ public class Board : MonoBehaviour
 
     public bool isRefilling = false;
 
+    private BoardDeadlock boardDeadlock;
     [System.Serializable]
     public class StartingObject
     {
@@ -69,6 +71,7 @@ public class Board : MonoBehaviour
         allGamePieces = new GamePiece[width, height];
 
         particleManager = GameObject.FindWithTag("ParticleManager").GetComponent<ParticleManager>();
+        boardDeadlock = GetComponent<BoardDeadlock>();
     }
 
     private void MakeTile(GameObject prefab, int x, int y, int z = 0)
