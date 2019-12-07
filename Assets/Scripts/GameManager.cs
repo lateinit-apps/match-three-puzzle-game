@@ -18,8 +18,14 @@ public class GameManager : Singleton<GameManager>
 
     private bool isReadyToBegin = false;
     private bool isReadyToReload = false;
-    private bool isGameOver = false;
     private bool isWinner = false;
+    private bool isGameOver = false;
+
+    public bool IsGameOver
+    {
+        get => isGameOver;
+        set => isGameOver = value;
+    }
 
     public MessageWindow messageWindow;
 
@@ -47,6 +53,7 @@ public class GameManager : Singleton<GameManager>
     {
         yield return StartCoroutine(StartGameRoutine());
         yield return StartCoroutine(PlayGameRoutine());
+        yield return StartCoroutine(WaitForBoardRoutine(0.5f));
         yield return StartCoroutine(EndGameRoutine());
     }
 
@@ -143,6 +150,21 @@ public class GameManager : Singleton<GameManager>
         }
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private IEnumerator WaitForBoardRoutine(float delay = 0f)
+    {
+        if (board != null)
+        {
+            yield return new WaitForSeconds(board.swapTime);
+
+            while (board.isRefilling)
+            {
+                yield return null;
+            }
+        }
+
+        yield return new WaitForSeconds(delay);
     }
 
     public void UpdateMoves()

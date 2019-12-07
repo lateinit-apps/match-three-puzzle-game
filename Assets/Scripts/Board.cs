@@ -51,6 +51,8 @@ public class Board : MonoBehaviour
 
     private int scoreMultiplier = 0;
 
+    public bool isRefilling = false;
+
     [System.Serializable]
     public class StartingObject
     {
@@ -284,7 +286,7 @@ public class Board : MonoBehaviour
 
     private IEnumerator SwitchTilesRoutine(Tile clickedTile, Tile targetTile)
     {
-        if (playerInputEnabled)
+        if (playerInputEnabled && !GameManager.Instance.IsGameOver)
         {
             GamePiece clickedPiece = allGamePieces[clickedTile.xIndex, clickedTile.yIndex];
             GamePiece targetPiece = allGamePieces[targetTile.xIndex, targetTile.yIndex];
@@ -761,6 +763,7 @@ public class Board : MonoBehaviour
     private IEnumerator ClearAndRefillBoardRoutine(List<GamePiece> gamePieces)
     {
         playerInputEnabled = false;
+        isRefilling = true;
 
         List<GamePiece> matches = gamePieces;
 
@@ -782,6 +785,7 @@ public class Board : MonoBehaviour
         while (matches.Count != 0);
 
         playerInputEnabled = true;
+        isRefilling = false;
     }
 
     private IEnumerator ClearAndCollapseRoutine(List<GamePiece> gamePieces)
