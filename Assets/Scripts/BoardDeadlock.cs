@@ -17,14 +17,14 @@ public class BoardDeadlock : MonoBehaviour
         {
             if (checkRow)
             {
-                if (x + i < width && y < height)
+                if (x + i < width && y < height && allPieces[x + i, y] != null)
                 {
                     piecesList.Add(allPieces[x + i, y]);
                 }
             }
             else
             {
-                if (x < width && y + i < height)
+                if (x < width && y + i < height && allPieces[x, y + i] != null)
                 {
                     piecesList.Add(allPieces[x, y + i]);
                 }
@@ -114,9 +114,9 @@ public class BoardDeadlock : MonoBehaviour
             {
                 string rowColumnString = checkRow ? "row" : "column";
 
-                Debug.Log("Available move: " + matches[0].matchValue + " piece to " +
-                          unmatchedPiece.xIndex + ", " + unmatchedPiece.yIndex +
-                          " to form matching " + rowColumnString);
+                // Debug.Log("Available move: " + matches[0].matchValue + " piece to " +
+                //           unmatchedPiece.xIndex + ", " + unmatchedPiece.yIndex +
+                //           " to form matching " + rowColumnString);
 
                 return true;
             }

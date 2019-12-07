@@ -667,6 +667,11 @@ public class Board : MonoBehaviour
             for (int j = 0; j < height; j++)
             {
                 ClearPieceAt(i, j);
+
+                if (particleManager != null)
+                {
+                    particleManager.ClearPieceFXAt(i, j);
+                }
             }
         }
     }
@@ -781,6 +786,17 @@ public class Board : MonoBehaviour
             yield return new WaitForSeconds(0.25f);
         }
         while (matches.Count != 0);
+
+        if (boardDeadlock.IsDeadlocked(allGamePieces, 3))
+        {
+            yield return new WaitForSeconds(3f);
+
+            ClearBoard();
+
+            yield return new WaitForSeconds(1f);
+
+            yield return StartCoroutine(RefillRoutine());
+        }
 
         playerInputEnabled = true;
         isRefilling = false;
