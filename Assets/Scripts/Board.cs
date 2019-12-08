@@ -229,6 +229,40 @@ public class Board : MonoBehaviour
         return null;
     }
 
+    private void FillBoardFromList(List<GamePiece> gamePieces)
+    {
+        Queue<GamePiece> unusedPieces = new Queue<GamePiece>(gamePieces);
+
+        int maxIterations = 100;
+        int iterations = 0;
+
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                if (allGamePieces[i, j] == null && allTiles[i, j].tileType != TileType.Obstacle)
+                {
+                    allGamePieces[i, j] = unusedPieces.Dequeue();
+
+                    iterations = 0;
+
+                    while (HasMatchOnFill(i, j))
+                    {
+                        unusedPieces.Enqueue(allGamePieces[i, j]);
+
+                        allGamePieces[i, j] = unusedPieces.Dequeue();
+
+                        iterations++;
+
+                        if (iterations >= maxIterations)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     private void FillBoard(int falseYOffest = 0, float moveTime = 0.1f)
     {
@@ -793,9 +827,11 @@ public class Board : MonoBehaviour
 
         if (boardDeadlock.IsDeadlocked(allGamePieces, 3))
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1f);
 
-            ClearBoard();
+            // ClearBoard();
+
+            yield return StartCoroutine(ShuffleBoardRoutine());
 
             yield return new WaitForSeconds(1f);
 
@@ -893,6 +929,11 @@ public class Board : MonoBehaviour
         {
             if (piece != null)
             {
+                if (piece.transform.position.x - (float)piece.xIndex > 0.001f)
+                {
+                    return false;
+                }
+
                 if (piece.transform.position.y - (float)piece.yIndex > 0.001f)
                 {
                     return false;
@@ -1225,6 +1266,33 @@ public class Board : MonoBehaviour
         return null;
     }
 
+    private IEnumerator ShuffleBoardRoutine()
+    {
+        List<GamePiece> allPieces = new List<GamePiece>();
+
+        foreach (GamePiece piece in allGamePieces)
+        {
+            allPieces.Add(piece);
+        }
+
+        while (!IsCollapsed(allPieces))
+        {
+            yield return null;
+        }
+
+        List<GamePiece> normalPieces = boardShuffler.RemoveNormalPieces(allGamePieces);
+
+        boardShuffler.ShuffleList(normalPieces);
+
+        FillBoardFromList(normalPieces);
+
+        boardShuffler.MovePieces(allGamePieces, swapTime);
+
+        List<GamePiece> matches = FindAllMatches();
+
+        StartCoroutine(ClearAndRefillBoardRoutine(matches));
+    }
+
     public void PlaceGamePiece(GamePiece gamePiece, int x, int y)
     {
         if (gamePiece == null)
@@ -1283,4 +1351,12 @@ public class Board : MonoBehaviour
     }
 
     public void TestDeadlock() => boardDeadlock.IsDeadlocked(allGamePieces, 3);
+
+    public void ShuffleBoard()
+    {
+        if (playerInputEnabled)
+        {
+            StartCoroutine(ShuffleBoardRoutine());
+        }
+    }
 }
