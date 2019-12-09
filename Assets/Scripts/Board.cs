@@ -681,7 +681,10 @@ public class Board : MonoBehaviour
                     bonus = 20;
                 }
 
-                piece.ScorePoints(scoreMultiplier, bonus);
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.ScorePoints(piece, scoreMultiplier, bonus);
+                }
 
                 if (particleManager != null)
                 {

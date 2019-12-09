@@ -46,7 +46,7 @@ public class GameManager : Singleton<GameManager>
         }
 
         levelGoal.movesLeft++;
-        
+
         UpdateMoves();
 
         StartCoroutine(ExecuteGameLoop());
@@ -65,7 +65,7 @@ public class GameManager : Singleton<GameManager>
         if (messageWindow != null)
         {
             messageWindow.GetComponent<RectXformMover>().MoveOn();
-            messageWindow.ShowMessage(goalIcon, 
+            messageWindow.ShowMessage(goalIcon,
                                       "score goal\n" + levelGoal.scoreGoals[0].ToString(), "start");
         }
 
@@ -91,20 +91,8 @@ public class GameManager : Singleton<GameManager>
     {
         while (!isGameOver)
         {
-            if (ScoreManager.Instance != null)
-            {
-                if (ScoreManager.Instance.CurrentScore >= levelGoal.scoreGoals[0])
-                {
-                    isGameOver = true;
-                    isWinner = true;
-                }
-            }
-
-            if (levelGoal.movesLeft == 0)
-            {
-                isGameOver = true;
-                isWinner = false;
-            }
+            isWinner = levelGoal.IsWinner();
+            isGameOver = levelGoal.IsGameOver();
 
             yield return null;
         }
@@ -193,4 +181,23 @@ public class GameManager : Singleton<GameManager>
     public void BeginGame() => isReadyToBegin = true;
 
     public void ReloadScene() => isReadyToReload = true;
+
+    public void ScorePoints(GamePiece piece, int multiplier = 1, int bonus = 0)
+    {
+        if (piece != null)
+        {
+            if (ScoreManager.Instance != null)
+            {
+                ScoreManager.Instance.AddScore(piece.scoreValue * multiplier + bonus);
+                
+                levelGoal.UpdateScoreStars(ScoreManager.Instance.CurrentScore);
+            }
+
+            if (SoundManager.Instance != null && piece.clearSound != null)
+            {
+                SoundManager.Instance.PlayClipAtPoint(piece.clearSound, Vector3.zero,
+                                                      SoundManager.Instance.fxVolume);
+            }
+        }
+    }
 }

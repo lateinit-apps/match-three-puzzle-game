@@ -133,18 +133,4 @@ public class GamePiece : MonoBehaviour
             StartCoroutine(MoveRoutine(new Vector3(destinationX, destinationY, 0), timeToMove));
         }
     }
-
-    public void ScorePoints(int multiplier = 1, int bonus = 0)
-    {
-        if (ScoreManager.Instance != null)
-        {
-            ScoreManager.Instance.AddScore(scoreValue * multiplier + bonus);
-        }
-
-        if (SoundManager.Instance != null)
-        {
-            SoundManager.Instance.PlayClipAtPoint(clearSound, Vector3.zero,
-                                                  SoundManager.Instance.fxVolume);
-        }
-    }
 }
