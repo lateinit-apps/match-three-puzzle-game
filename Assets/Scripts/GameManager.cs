@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(LevelGoal))]
 public class GameManager : Singleton<GameManager>
 {
-    public int movesLeft = 30;
-    public int scoreGoal = 10000;
+    // public int movesLeft = 30;
+    // public int scoreGoal = 10000;
 
     public ScreenFader screenFader;
 
@@ -33,10 +34,10 @@ public class GameManager : Singleton<GameManager>
     public Sprite winIcon;
     public Sprite goalIcon;
 
+    private LevelGoal levelGoal;
+
     private void Start()
     {
-        board = GameObject.FindObjectOfType<Board>().GetComponent<Board>();
-
         Scene scene = SceneManager.GetActiveScene();
 
         if (levelNameText != null)
@@ -44,6 +45,8 @@ public class GameManager : Singleton<GameManager>
             levelNameText.text = scene.name;
         }
 
+        levelGoal.movesLeft++;
+        
         UpdateMoves();
 
         StartCoroutine(ExecuteGameLoop());
@@ -62,7 +65,8 @@ public class GameManager : Singleton<GameManager>
         if (messageWindow != null)
         {
             messageWindow.GetComponent<RectXformMover>().MoveOn();
-            messageWindow.ShowMessage(goalIcon, "score goal\n" + scoreGoal.ToString(), "start");
+            messageWindow.ShowMessage(goalIcon, 
+                                      "score goal\n" + levelGoal.scoreGoals[0].ToString(), "start");
         }
 
         while (!isReadyToBegin)
@@ -89,14 +93,14 @@ public class GameManager : Singleton<GameManager>
         {
             if (ScoreManager.Instance != null)
             {
-                if (ScoreManager.Instance.CurrentScore >= scoreGoal)
+                if (ScoreManager.Instance.CurrentScore >= levelGoal.scoreGoals[0])
                 {
                     isGameOver = true;
                     isWinner = true;
                 }
             }
 
-            if (movesLeft == 0)
+            if (levelGoal.movesLeft == 0)
             {
                 isGameOver = true;
                 isWinner = false;
@@ -167,11 +171,22 @@ public class GameManager : Singleton<GameManager>
         yield return new WaitForSeconds(delay);
     }
 
+    public override void Awake()
+    {
+        base.Awake();
+
+        levelGoal = GetComponent<LevelGoal>();
+
+        board = GameObject.FindObjectOfType<Board>().GetComponent<Board>();
+    }
+
     public void UpdateMoves()
     {
+        levelGoal.movesLeft--;
+
         if (movesLeftText != null)
         {
-            movesLeftText.text = movesLeft.ToString();
+            movesLeftText.text = levelGoal.movesLeft.ToString();
         }
     }
 
