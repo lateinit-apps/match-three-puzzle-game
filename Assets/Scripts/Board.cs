@@ -817,7 +817,7 @@ public class Board : MonoBehaviour
         {
             scoreMultiplier++;
 
-            yield return StartCoroutine(ClearAndCollapseRoutine(gamePieces));
+            yield return StartCoroutine(ClearAndCollapseRoutine(matches));
             yield return null;
 
             yield return StartCoroutine(RefillRoutine());
@@ -924,6 +924,8 @@ public class Board : MonoBehaviour
                 yield return StartCoroutine(ClearAndCollapseRoutine(matches));
             }
         }
+
+        yield return null;
     }
 
     private bool IsCollapsed(List<GamePiece> gamePieces)
