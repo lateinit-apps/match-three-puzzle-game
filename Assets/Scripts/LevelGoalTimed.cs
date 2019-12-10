@@ -4,12 +4,27 @@ using UnityEngine;
 
 public class LevelGoalTimed : LevelGoal
 {
+    public Timer timer;
+
+    private void Start()
+    {
+        if (timer != null)
+        {
+            timer.InitTimer(timeLeft);
+        }
+    }
+
     private IEnumerator CountdownRoutine()
     {
         while (timeLeft > 0)
         {
             yield return new WaitForSeconds(1f);
             timeLeft--;
+
+            if (timer != null)
+            {
+                timer.UpdateTimer(timeLeft);
+            }
         }
     }
 
