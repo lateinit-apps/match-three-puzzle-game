@@ -35,6 +35,7 @@ public class GameManager : Singleton<GameManager>
     public Sprite goalIcon;
 
     private LevelGoal levelGoal;
+    private LevelGoalTimed levelGoalTimed;
 
     public ScoreMeter scoreMeter;
 
@@ -96,6 +97,11 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator PlayGameRoutine()
     {
+        if (levelGoalTimed != null)
+        {
+            levelGoalTimed.StartCountdown();
+        }
+
         while (!isGameOver)
         {
             isWinner = levelGoal.IsWinner();
@@ -171,17 +177,29 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
 
         levelGoal = GetComponent<LevelGoal>();
+        levelGoalTimed = GetComponent<LevelGoalTimed>();
 
         board = GameObject.FindObjectOfType<Board>().GetComponent<Board>();
     }
 
     public void UpdateMoves()
     {
-        levelGoal.movesLeft--;
-
-        if (movesLeftText != null)
+        if (levelGoalTimed == null)
         {
-            movesLeftText.text = levelGoal.movesLeft.ToString();
+            levelGoal.movesLeft--;
+
+            if (movesLeftText != null)
+            {
+                movesLeftText.text = levelGoal.movesLeft.ToString();
+            }
+        }
+        else
+        {
+            if (movesLeftText != null)
+            {
+                movesLeftText.text = "\u221E";
+                movesLeftText.fontSize = 70;
+            }
         }
     }
 
@@ -196,7 +214,7 @@ public class GameManager : Singleton<GameManager>
             if (ScoreManager.Instance != null)
             {
                 ScoreManager.Instance.AddScore(piece.scoreValue * multiplier + bonus);
-                
+
                 levelGoal.UpdateScoreStars(ScoreManager.Instance.CurrentScore);
 
                 if (scoreMeter != null)
