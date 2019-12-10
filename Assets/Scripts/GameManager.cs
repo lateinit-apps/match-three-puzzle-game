@@ -36,8 +36,15 @@ public class GameManager : Singleton<GameManager>
 
     private LevelGoal levelGoal;
 
+    public ScoreMeter scoreMeter;
+
     private void Start()
     {
+        if (scoreMeter != null)
+        {
+            scoreMeter.SetupStars(levelGoal);
+        }
+
         Scene scene = SceneManager.GetActiveScene();
 
         if (levelNameText != null)
@@ -191,6 +198,12 @@ public class GameManager : Singleton<GameManager>
                 ScoreManager.Instance.AddScore(piece.scoreValue * multiplier + bonus);
                 
                 levelGoal.UpdateScoreStars(ScoreManager.Instance.CurrentScore);
+
+                if (scoreMeter != null)
+                {
+                    scoreMeter.UpdateScoreMeter(
+                        ScoreManager.Instance.CurrentScore, levelGoal.scoreStars);
+                }
             }
 
             if (SoundManager.Instance != null && piece.clearSound != null)

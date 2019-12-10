@@ -41,6 +41,8 @@ public class ScoreStar : MonoBehaviour
         }
 
         yield return new WaitForSeconds(delay);
+
+        SetActive(true);
     }
 
     public void Activate()

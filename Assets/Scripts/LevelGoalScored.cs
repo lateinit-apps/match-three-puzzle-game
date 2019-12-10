@@ -10,5 +10,15 @@
         return false;
     }
 
-    public override bool IsGameOver() => movesLeft == 0;
+    public override bool IsGameOver()
+    {
+        int maxScore = scoreGoals[scoreGoals.Length - 1];
+
+        if (ScoreManager.Instance.CurrentScore > maxScore)
+        {
+            return true;
+        }
+        
+        return movesLeft == 0;
+    }
 }
