@@ -684,6 +684,16 @@ public class Board : MonoBehaviour
                 if (GameManager.Instance != null)
                 {
                     GameManager.Instance.ScorePoints(piece, scoreMultiplier, bonus);
+
+                    TimeBonus timeBonus = piece.GetComponent<TimeBonus>();
+
+                    if (timeBonus != null)
+                    {
+                        GameManager.Instance.AddTime(timeBonus.bonusValue);
+                        
+                        Debug.Log("Board: adding time bonus from" +
+                                  piece.name + " of " + timeBonus.bonusValue);
+                    }
                 }
 
                 if (particleManager != null)
