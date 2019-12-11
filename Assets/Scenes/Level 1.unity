@@ -24837,6 +24837,7 @@ GameObject:
   - component: {fileID: 356428055}
   - component: {fileID: 356428057}
   - component: {fileID: 356428056}
+  - component: {fileID: 356428058}
   m_Layer: 5
   m_Name: TimeLeftLabel
   m_TagString: Untagged
@@ -24903,6 +24904,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 356428054}
   m_CullTransparentMesh: 0
+--- !u!114 &356428058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356428054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f8a2ebc06d523478d30ef2685b4b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  solidAlpha: 1
+  clearAlpha: 0
+  delay: 0
+  timeToFade: 1
 --- !u!1 &418233511
 GameObject:
   m_ObjectHideFlags: 0
@@ -25798,6 +25815,7 @@ GameObject:
   - component: {fileID: 588331513}
   - component: {fileID: 588331515}
   - component: {fileID: 588331514}
+  - component: {fileID: 588331516}
   m_Layer: 5
   m_Name: ClockImage
   m_TagString: Untagged
@@ -25860,6 +25878,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 588331512}
   m_CullTransparentMesh: 0
+--- !u!114 &588331516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588331512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f8a2ebc06d523478d30ef2685b4b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  solidAlpha: 1
+  clearAlpha: 0
+  delay: 0
+  timeToFade: 1
 --- !u!1 &693634252
 GameObject:
   m_ObjectHideFlags: 0
@@ -31235,6 +31269,7 @@ GameObject:
   - component: {fileID: 972500116}
   - component: {fileID: 972500118}
   - component: {fileID: 972500117}
+  - component: {fileID: 972500119}
   m_Layer: 5
   m_Name: ClockBackground
   m_TagString: Untagged
@@ -31298,6 +31333,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 972500115}
   m_CullTransparentMesh: 0
+--- !u!114 &972500119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972500115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f8a2ebc06d523478d30ef2685b4b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  solidAlpha: 1
+  clearAlpha: 0
+  delay: 0
+  timeToFade: 1
 --- !u!1 &1026165191
 GameObject:
   m_ObjectHideFlags: 0
@@ -31463,6 +31514,7 @@ GameObject:
   - component: {fileID: 1192373876}
   - component: {fileID: 1192373878}
   - component: {fileID: 1192373877}
+  - component: {fileID: 1192373879}
   m_Layer: 5
   m_Name: TimeLeftText
   m_TagString: Untagged
@@ -31530,6 +31582,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1192373875}
   m_CullTransparentMesh: 0
+--- !u!114 &1192373879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192373875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f8a2ebc06d523478d30ef2685b4b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  solidAlpha: 1
+  clearAlpha: 0
+  delay: 0
+  timeToFade: 1
 --- !u!1 &1206110406
 GameObject:
   m_ObjectHideFlags: 0
@@ -36546,6 +36614,10 @@ MonoBehaviour:
   timeLeftText: {fileID: 1192373877}
   clockImage: {fileID: 588331514}
   paused: 0
+  flashTimeLimit: 10
+  flashInterval: 1
+  flashBeep: {fileID: 8300000, guid: 3235eb35ca4de45b9901ea9ccbff8d77, type: 3}
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1359899937
 GameObject:
   m_ObjectHideFlags: 0

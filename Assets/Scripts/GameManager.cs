@@ -159,6 +159,15 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator WaitForBoardRoutine(float delay = 0f)
     {
+        if (levelGoalTimed != null)
+        {
+            if (levelGoalTimed.timer != null)
+            {
+                levelGoalTimed.timer.FadeOff();
+                levelGoalTimed.timer.paused = true;
+            }
+        }
+
         if (board != null)
         {
             yield return new WaitForSeconds(board.swapTime);
