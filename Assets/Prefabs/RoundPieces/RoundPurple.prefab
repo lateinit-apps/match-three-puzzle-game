@@ -115,9 +115,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bonusValue: 0
-  chanceForBonus: 0
-  bonusGlow: {fileID: 4544591551091327737}
-  ringGlow: {fileID: 8328164446130373024}
+  chanceForBonus: 0.4
+  bonusGlow: {fileID: 5536222087217427678, guid: 7471f6d24260942c499dd3fbbeccadc6,
+    type: 3}
+  ringGlow: {fileID: 1098102663670608497, guid: 7471f6d24260942c499dd3fbbeccadc6,
+    type: 3}
+  bonusMaterials:
+  - {fileID: 2100000, guid: 37a70e431842c4da8bd54b57f79a6a15, type: 2}
+  - {fileID: 2100000, guid: 6c1115aa8238945aa8a890f8d9eab054, type: 2}
+  - {fileID: 2100000, guid: f9abcc6651fa740c8b13e5a68041d9f1, type: 2}
+  - {fileID: 2100000, guid: 0be551819c18d475d8b62058253297a4, type: 2}
+  - {fileID: 2100000, guid: b86a977f1328a43588158f40baa66678, type: 2}
 --- !u!1 &4544591551091327737
 GameObject:
   m_ObjectHideFlags: 0

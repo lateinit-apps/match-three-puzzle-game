@@ -37,6 +37,11 @@ public class GameManager : Singleton<GameManager>
     private LevelGoal levelGoal;
     private LevelGoalTimed levelGoalTimed;
 
+    public LevelGoalTimed LevelGoalTimed
+    {
+        get => levelGoalTimed;
+    }
+
     public ScoreMeter scoreMeter;
 
     private void Start()

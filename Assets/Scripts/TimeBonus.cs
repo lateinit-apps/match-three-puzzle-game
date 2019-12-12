@@ -12,6 +12,8 @@ public class TimeBonus : MonoBehaviour
     public GameObject bonusGlow;
     public GameObject ringGlow;
 
+    public Material[] bonusMaterials;
+
     private void Start()
     {
         float random = Random.Range(0f, 1f);
@@ -21,7 +23,20 @@ public class TimeBonus : MonoBehaviour
             bonusValue = 0;
         }
 
+        if (GameManager.Instance != null)
+        {
+            if (GameManager.Instance.LevelGoalTimed == null)
+            {
+                bonusValue = 0;
+            }
+        }
+
         SetActive(bonusValue != 0);
+
+        if (bonusValue != 0)
+        {
+            SetupMaterial(bonusValue - 1, bonusGlow);
+        }
     }
 
     private void SetActive(bool state)
@@ -34,6 +49,22 @@ public class TimeBonus : MonoBehaviour
         if (ringGlow != null)
         {
             ringGlow.SetActive(state);
+        }
+    }
+
+    private void SetupMaterial(int value, GameObject bonusGlow)
+    {
+        int clampedValue = Mathf.Clamp(value, 0, bonusMaterials.Length - 1);
+
+        if (bonusMaterials[clampedValue] != null)
+        {
+            if (bonusGlow != null)
+            {
+                ParticleSystemRenderer bonusGlowRenderer =
+                    bonusGlow.GetComponent<ParticleSystemRenderer>();
+                
+                bonusGlowRenderer.material = bonusMaterials[clampedValue];
+            }
         }
     }
 }
