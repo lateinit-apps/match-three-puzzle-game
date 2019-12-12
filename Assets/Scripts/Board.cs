@@ -691,8 +691,8 @@ public class Board : MonoBehaviour
                     {
                         GameManager.Instance.AddTime(timeBonus.bonusValue);
                         
-                        Debug.Log("Board: adding time bonus from" +
-                                  piece.name + " of " + timeBonus.bonusValue);
+                        // Debug.Log("Board: adding time bonus from" +
+                        //           piece.name + " of " + timeBonus.bonusValue);
                     }
                 }
 
