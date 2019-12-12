@@ -694,6 +694,8 @@ public class Board : MonoBehaviour
                         // Debug.Log("Board: adding time bonus from" +
                         //           piece.name + " of " + timeBonus.bonusValue);
                     }
+
+                    GameManager.Instance.UpdateCollectionGoals(piece);
                 }
 
                 if (particleManager != null)

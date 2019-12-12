@@ -36,6 +36,7 @@ public class GameManager : Singleton<GameManager>
 
     private LevelGoal levelGoal;
     private LevelGoalTimed levelGoalTimed;
+    private LevelGoalCollected levelGoalCollected;
 
     public LevelGoalTimed LevelGoalTimed
     {
@@ -192,6 +193,7 @@ public class GameManager : Singleton<GameManager>
 
         levelGoal = GetComponent<LevelGoal>();
         levelGoalTimed = GetComponent<LevelGoalTimed>();
+        levelGoalCollected = GetComponent<LevelGoalCollected>();
 
         board = GameObject.FindObjectOfType<Board>().GetComponent<Board>();
     }
@@ -251,6 +253,14 @@ public class GameManager : Singleton<GameManager>
         if (levelGoalTimed != null)
         {
             levelGoalTimed.AddTime(timeValue);
+        }
+    }
+
+    public void UpdateCollectionGoals(GamePiece pieceToCheck)
+    {
+        if (levelGoalCollected != null)
+        {
+            levelGoalCollected.UpdateGoals(pieceToCheck);
         }
     }
 }
