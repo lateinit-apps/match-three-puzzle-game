@@ -116,10 +116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bonusValue: 0
   chanceForBonus: 0.4
-  bonusGlow: {fileID: 5536222087217427678, guid: 7471f6d24260942c499dd3fbbeccadc6,
-    type: 3}
-  ringGlow: {fileID: 1098102663670608497, guid: 7471f6d24260942c499dd3fbbeccadc6,
-    type: 3}
+  bonusGlow: {fileID: 6853306066084786959}
+  ringGlow: {fileID: 7643149092999453496}
   bonusMaterials:
   - {fileID: 2100000, guid: 37a70e431842c4da8bd54b57f79a6a15, type: 2}
   - {fileID: 2100000, guid: 6c1115aa8238945aa8a890f8d9eab054, type: 2}
