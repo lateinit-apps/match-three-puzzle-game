@@ -59,6 +59,11 @@ public class GameManager : Singleton<GameManager>
             levelNameText.text = scene.name;
         }
 
+        if (levelGoalCollected != null && UIManager.Instance != null)
+        {
+            UIManager.Instance.SetupCollectionGoalLayout(levelGoalCollected.collectionGoals);
+        }
+
         levelGoal.movesLeft++;
 
         UpdateMoves();

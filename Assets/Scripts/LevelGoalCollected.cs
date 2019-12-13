@@ -1,7 +1,6 @@
 ﻿public class LevelGoalCollected : LevelGoal
 {
     public CollectionGoal[] collectionGoals;
-    public CollectionGoalPanel[] uiPanels;
 
     private bool AreGoalsComplete(CollectionGoal[] goals)
     {
@@ -44,12 +43,9 @@
 
     public void UpdateUI()
     {
-        foreach (CollectionGoalPanel panel in uiPanels)
+        if (UIManager.Instance != null)
         {
-            if (panel != null)
-            {
-                panel.UpdatePanel();
-            }
+            UIManager.Instance.UpdateCollectionGoalLayout();
         }
     }
 
