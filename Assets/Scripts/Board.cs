@@ -372,12 +372,6 @@ public class Board : MonoBehaviour
                 }
                 else
                 {
-                    if (GameManager.Instance != null)
-                    {
-                        // GameManager.Instance.movesLeft--;
-                        GameManager.Instance.UpdateMoves();
-                    }
-
                     yield return new WaitForSeconds(swapTime);
 
                     Vector2 swapDirection = new Vector2(targetTile.xIndex - clickedTile.xIndex,
@@ -408,9 +402,17 @@ public class Board : MonoBehaviour
                         }
                     }
 
-                    ClearAndRefillBoard(clickedPieceMatches
-                                        .Union(targetPieceMatches).ToList()
-                                        .Union(colorMatches).ToList());
+                    List<GamePiece> piecesToClear = clickedPieceMatches
+                                                    .Union(targetPieceMatches).ToList()
+                                                    .Union(colorMatches).ToList();
+
+                    yield return StartCoroutine(ClearAndRefillBoardRoutine(piecesToClear));
+
+                    if (GameManager.Instance != null)
+                    {
+                        // GameManager.Instance.movesLeft--;
+                        GameManager.Instance.UpdateMoves();
+                    }
                 }
             }
         }
@@ -690,7 +692,7 @@ public class Board : MonoBehaviour
                     if (timeBonus != null)
                     {
                         GameManager.Instance.AddTime(timeBonus.bonusValue);
-                        
+
                         // Debug.Log("Board: adding time bonus from" +
                         //           piece.name + " of " + timeBonus.bonusValue);
                     }
