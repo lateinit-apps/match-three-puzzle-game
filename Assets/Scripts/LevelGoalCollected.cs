@@ -1,6 +1,7 @@
 ﻿public class LevelGoalCollected : LevelGoal
 {
-    public CollectionGoal[] collectGoals;
+    public CollectionGoal[] collectionGoals;
+    public CollectionGoalPanel[] uiPanels;
 
     private bool AreGoalsComplete(CollectionGoal[] goals)
     {
@@ -29,7 +30,7 @@
     {
         if (pieceToCheck != null)
         {
-            foreach (CollectionGoal goal in collectGoals )
+            foreach (CollectionGoal goal in collectionGoals )
             {
                 if (goal != null)
                 {
@@ -37,11 +38,24 @@
                 }
             }
         }
+
+        UpdateUI();
+    }
+
+    public void UpdateUI()
+    {
+        foreach (CollectionGoalPanel panel in uiPanels)
+        {
+            if (panel != null)
+            {
+                panel.UpdatePanel();
+            }
+        }
     }
 
     public override bool IsGameOver()
     {
-        if (AreGoalsComplete(collectGoals) && ScoreManager.Instance != null)
+        if (AreGoalsComplete(collectionGoals) && ScoreManager.Instance != null)
         {
             int maxScore = scoreGoals[scoreGoals.Length - 1];
 
@@ -59,7 +73,7 @@
         if (ScoreManager.Instance != null)
         {
             return ScoreManager.Instance.CurrentScore >= scoreGoals[0] &&
-                   AreGoalsComplete(collectGoals);
+                   AreGoalsComplete(collectionGoals);
         }
 
         return false;
