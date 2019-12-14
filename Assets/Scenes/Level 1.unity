@@ -430,14 +430,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b0f50e746e80a42bc34c6648a313c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenFader: {fileID: 1908654262}
-  levelNameText: {fileID: 545264845}
-  movesLeftText: {fileID: 712793203}
-  messageWindow: {fileID: 125198371}
   loseIcon: {fileID: 21300000, guid: 24b5b6b7f7200934faf26c42a5f6d053, type: 3}
   winIcon: {fileID: 21300000, guid: 3afd2b23813a60747a346ba3991633c8, type: 3}
   goalIcon: {fileID: 21300000, guid: 8e02eb9b31b34bf4893e4068131057b4, type: 3}
-  scoreMeter: {fileID: 418233514}
 --- !u!114 &119837731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,9 +452,6 @@ MonoBehaviour:
   collectionGoals:
   - {fileID: 409132023}
   - {fileID: 1365708914}
-  uiPanels:
-  - {fileID: 948013051}
-  - {fileID: 1821453950}
 --- !u!1 &125198365
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,7 +472,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &125198366
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26186,6 +26178,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectionGoalLayout: {fileID: 1876461625}
   collectionGoalBaseWidth: 125
+  screenFader: {fileID: 1908654262}
+  levelNameText: {fileID: 545264845}
+  movesLeftText: {fileID: 712793203}
+  messageWindow: {fileID: 125198371}
+  scoreMeter: {fileID: 418233514}
 --- !u!1 &693634252
 GameObject:
   m_ObjectHideFlags: 0
@@ -47997,7 +47994,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1908654259
 RectTransform:
   m_ObjectHideFlags: 0

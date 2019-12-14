@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -7,6 +8,29 @@ public class UIManager : Singleton<UIManager>
     public int collectionGoalBaseWidth = 125;
 
     CollectionGoalPanel[] collectionGoalPanels;
+
+    public ScreenFader screenFader;
+
+    public Text levelNameText;
+    public Text movesLeftText;
+    
+    public MessageWindow messageWindow;
+    public ScoreMeter scoreMeter;
+
+    public override void Awake()
+    {
+        base.Awake();
+
+        if (messageWindow != null)
+        {
+            messageWindow.gameObject.SetActive(true);
+        }
+
+        if (screenFader != null)
+        {
+            screenFader.gameObject.SetActive(true);
+        }
+    }
 
     public void SetupCollectionGoalLayout(CollectionGoal[] collectionGoals)
     {
