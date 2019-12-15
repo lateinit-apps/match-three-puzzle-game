@@ -430,9 +430,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b0f50e746e80a42bc34c6648a313c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loseIcon: {fileID: 21300000, guid: 24b5b6b7f7200934faf26c42a5f6d053, type: 3}
-  winIcon: {fileID: 21300000, guid: 3afd2b23813a60747a346ba3991633c8, type: 3}
-  goalIcon: {fileID: 21300000, guid: 8e02eb9b31b34bf4893e4068131057b4, type: 3}
 --- !u!114 &119837731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,7 +449,6 @@ MonoBehaviour:
   levelCounter: 1
   collectionGoals:
   - {fileID: 409132023}
-  - {fileID: 1365708914}
 --- !u!1 &125198365
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,6 +573,9 @@ MonoBehaviour:
   messageIcon: {fileID: 69767160}
   messageText: {fileID: 282993678}
   buttonText: {fileID: 1026165193}
+  loseIcon: {fileID: 21300000, guid: 24b5b6b7f7200934faf26c42a5f6d053, type: 3}
+  winIcon: {fileID: 21300000, guid: 3afd2b23813a60747a346ba3991633c8, type: 3}
+  goalIcon: {fileID: 21300000, guid: 8e02eb9b31b34bf4893e4068131057b4, type: 3}
 --- !u!1 &125777946
 GameObject:
   m_ObjectHideFlags: 0
