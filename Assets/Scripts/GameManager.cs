@@ -77,7 +77,6 @@ public class GameManager : Singleton<GameManager>
         board = GameObject.FindObjectOfType<Board>().GetComponent<Board>();
     }
 
-
     private IEnumerator ExecuteGameLoop()
     {
         yield return StartCoroutine(StartGameRoutine());
@@ -96,6 +95,20 @@ public class GameManager : Singleton<GameManager>
 
                 int maxGoal = levelGoal.scoreGoals.Length - 1;
                 UIManager.Instance.messageWindow.ShowScoreMessage(levelGoal.scoreGoals[maxGoal]);
+
+                if (levelGoal.levelCounter == LevelCounter.Timer)
+                {
+                    UIManager.Instance.messageWindow.ShowTimedGoal(levelGoal.timeLeft);
+                }
+                else
+                {
+                    UIManager.Instance.messageWindow.ShowMovesGoal(levelGoal.movesLeft);
+                }
+
+                if (levelGoalCollected != null)
+                {
+                    UIManager.Instance.messageWindow.ShowCollectionGoal();
+                }
             }
 
             if (UIManager.Instance.screenFader != null)
