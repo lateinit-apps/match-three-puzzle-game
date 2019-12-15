@@ -13,9 +13,13 @@ public class UIManager : Singleton<UIManager>
 
     public Text levelNameText;
     public Text movesLeftText;
-    
+
     public MessageWindow messageWindow;
     public ScoreMeter scoreMeter;
+
+    public GameObject movesCounter;
+
+    public Timer timer;
 
     public override void Awake()
     {
@@ -67,6 +71,30 @@ public class UIManager : Singleton<UIManager>
             {
                 panel.UpdatePanel();
             }
+        }
+    }
+
+    public void EnableTimer(bool state)
+    {
+        if (timer != null)
+        {
+            timer.gameObject.SetActive(state);
+        }
+    }
+
+    public void EnableMovesCounter(bool state)
+    {
+        if (movesCounter != null)
+        {
+            movesCounter.SetActive(state);
+        }
+    }
+
+    public void EnableColletionGoalLayout(bool state)
+    {
+        if (collectionGoalLayout != null)
+        {
+            collectionGoalLayout.gameObject.SetActive(state);
         }
     }
 }

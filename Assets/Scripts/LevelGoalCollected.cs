@@ -29,7 +29,7 @@
     {
         if (pieceToCheck != null)
         {
-            foreach (CollectionGoal goal in collectionGoals )
+            foreach (CollectionGoal goal in collectionGoals)
             {
                 if (goal != null)
                 {
@@ -61,7 +61,14 @@
             }
         }
 
-        return movesLeft <= 0;
+        if (levelCounter == LevelCounter.Timer)
+        {
+            return timeLeft <= 0;
+        }
+        else
+        {
+            return movesLeft <= 0;
+        }
     }
 
     public override bool IsWinner()

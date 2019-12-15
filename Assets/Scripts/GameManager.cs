@@ -6,10 +6,6 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(LevelGoal))]
 public class GameManager : Singleton<GameManager>
 {
-    // public int movesLeft = 30;
-    // public int scoreGoal = 10000;
-
-
     private Board board;
 
     private bool isReadyToBegin = false;
@@ -28,12 +24,11 @@ public class GameManager : Singleton<GameManager>
     public Sprite goalIcon;
 
     private LevelGoal levelGoal;
-    private LevelGoalTimed levelGoalTimed;
     private LevelGoalCollected levelGoalCollected;
 
-    public LevelGoalTimed LevelGoalTimed
+    public LevelGoal LevelGoal
     {
-        get => levelGoalTimed;
+        get => levelGoal;
     }
 
     private void Start()
@@ -51,12 +46,23 @@ public class GameManager : Singleton<GameManager>
                 UIManager.Instance.levelNameText.text = scene.name;
             }
 
+            if (levelGoalCollected != null)
+            {
+                UIManager.Instance.EnableColletionGoalLayout(true);
+                UIManager.Instance.SetupCollectionGoalLayout(levelGoalCollected.collectionGoals);
+            }
+            else
+            {
+                UIManager.Instance.EnableColletionGoalLayout(false);
+            }
+
+            bool userTimer = levelGoal.levelCounter == LevelCounter.Timer;
+
+            UIManager.Instance.EnableTimer(userTimer);
+            UIManager.Instance.EnableMovesCounter(!userTimer);
         }
 
-        if (levelGoalCollected != null && UIManager.Instance != null)
-        {
-            UIManager.Instance.SetupCollectionGoalLayout(levelGoalCollected.collectionGoals);
-        }
+
 
         levelGoal.movesLeft++;
 
@@ -64,6 +70,17 @@ public class GameManager : Singleton<GameManager>
 
         StartCoroutine(ExecuteGameLoop());
     }
+
+    public override void Awake()
+    {
+        base.Awake();
+
+        levelGoal = GetComponent<LevelGoal>();
+        levelGoalCollected = GetComponent<LevelGoalCollected>();
+
+        board = GameObject.FindObjectOfType<Board>().GetComponent<Board>();
+    }
+
 
     private IEnumerator ExecuteGameLoop()
     {
@@ -105,9 +122,9 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator PlayGameRoutine()
     {
-        if (levelGoalTimed != null)
+        if (levelGoal.levelCounter == LevelCounter.Timer)
         {
-            levelGoalTimed.StartCountdown();
+            levelGoal.StartCountdown();
         }
 
         while (!isGameOver)
@@ -167,13 +184,11 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator WaitForBoardRoutine(float delay = 0f)
     {
-        if (levelGoalTimed != null)
+        if (levelGoal.levelCounter == LevelCounter.Timer &&
+            UIManager.Instance != null && UIManager.Instance.timer != null)
         {
-            if (levelGoalTimed.timer != null)
-            {
-                levelGoalTimed.timer.FadeOff();
-                levelGoalTimed.timer.paused = true;
-            }
+            UIManager.Instance.timer.FadeOff();
+            UIManager.Instance.timer.paused = true;
         }
 
         if (board != null)
@@ -189,20 +204,9 @@ public class GameManager : Singleton<GameManager>
         yield return new WaitForSeconds(delay);
     }
 
-    public override void Awake()
-    {
-        base.Awake();
-
-        levelGoal = GetComponent<LevelGoal>();
-        levelGoalTimed = GetComponent<LevelGoalTimed>();
-        levelGoalCollected = GetComponent<LevelGoalCollected>();
-
-        board = GameObject.FindObjectOfType<Board>().GetComponent<Board>();
-    }
-
     public void UpdateMoves()
     {
-        if (levelGoalTimed == null)
+        if (levelGoal.levelCounter == LevelCounter.Moves)
         {
             levelGoal.movesLeft--;
 
@@ -244,9 +248,9 @@ public class GameManager : Singleton<GameManager>
 
     public void AddTime(int timeValue)
     {
-        if (levelGoalTimed != null)
+        if (levelGoal.levelCounter == LevelCounter.Timer)
         {
-            levelGoalTimed.AddTime(timeValue);
+            levelGoal.AddTime(timeValue);
         }
     }
 
