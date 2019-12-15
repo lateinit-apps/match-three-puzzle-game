@@ -107,7 +107,15 @@ public class GameManager : Singleton<GameManager>
 
                 if (levelGoalCollected != null)
                 {
-                    UIManager.Instance.messageWindow.ShowCollectionGoal();
+                    UIManager.Instance.messageWindow.ShowCollectionGoal(true);
+
+                    GameObject goalLayout = UIManager.Instance.messageWindow.collectionGoalLayout;
+
+                    if (goalLayout != null)
+                    {
+                        UIManager.Instance.SetupCollectionGoalLayout(
+                            levelGoalCollected.collectionGoals, goalLayout, 80);
+                    }
                 }
             }
 

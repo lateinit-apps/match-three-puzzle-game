@@ -20,6 +20,8 @@ public class MessageWindow : MonoBehaviour
     public Image goalImage;
     public Text goalText;
 
+    public GameObject collectionGoalLayout;
+
     public void ShowMessage(Sprite sprite = null,
                             string message = "", string buttonMessage = "start")
     {
@@ -81,8 +83,16 @@ public class MessageWindow : MonoBehaviour
         ShowGoal(caption, movesIcon);
     }
 
-    public void ShowCollectionGoal()
+    public void ShowCollectionGoal(bool state = true)
     {
-        ShowGoal("", collectIcon);
+        if (collectionGoalLayout != null)
+        {
+            collectionGoalLayout.SetActive(state);
+        }
+
+        if (state)
+        {
+            ShowGoal("", collectIcon);
+        }
     }
 }
