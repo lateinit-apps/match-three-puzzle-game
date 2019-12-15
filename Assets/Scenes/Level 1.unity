@@ -444,13 +444,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreStars: 0
   scoreGoals: e8030000d0070000b80b0000
-  movesLeft: 60
+  movesLeft: 2
   timeLeft: 60
   levelCounter: 1
   collectionGoals:
   - {fileID: 409132023}
-  - {fileID: 1365708914}
-  - {fileID: 463233879}
 --- !u!1 &125198365
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,6 +577,8 @@ MonoBehaviour:
   loseIcon: {fileID: 21300000, guid: 24b5b6b7f7200934faf26c42a5f6d053, type: 3}
   winIcon: {fileID: 21300000, guid: 3afd2b23813a60747a346ba3991633c8, type: 3}
   goalIcon: {fileID: 21300000, guid: 8e02eb9b31b34bf4893e4068131057b4, type: 3}
+  goalCompleteIcon: {fileID: 21300000, guid: 8e02eb9b31b34bf4893e4068131057b4, type: 3}
+  goalFailedIcon: {fileID: 21300000, guid: ff6c41dd6476b5049b95beb25412e0f6, type: 3}
   collectIcon: {fileID: 21300000, guid: 1f07464902142ec4685e28619ea29798, type: 3}
   timerIcon: {fileID: 21300000, guid: 5feb84a7aa02843498235073932fa7a1, type: 3}
   movesIcon: {fileID: 21300000, guid: 0f08b99db8fdab143a21f35da7124c24, type: 3}
@@ -25380,7 +25380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToCollect: {fileID: 114422994271260120, guid: 7471f6d24260942c499dd3fbbeccadc6,
     type: 3}
-  numberToCollect: 5
+  numberToCollect: 1
 --- !u!1 &418233511
 GameObject:
   m_ObjectHideFlags: 0
