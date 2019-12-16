@@ -118,16 +118,16 @@ public class GameManager : Singleton<GameManager>
                     }
                 }
             }
-
-            if (UIManager.Instance.screenFader != null)
-            {
-                UIManager.Instance.screenFader.FadeOff();
-            }
         }
 
         while (!isReadyToBegin)
         {
             yield return null;
+        }
+
+        if (UIManager.Instance != null && UIManager.Instance.screenFader != null)
+        {
+            UIManager.Instance.screenFader.FadeOff();
         }
 
         yield return new WaitForSeconds(0.5f);
