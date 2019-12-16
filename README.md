@@ -25,7 +25,7 @@ A match-three puzzle game in Unity created under Wilmer Lin's [course](https://w
 
 ## Gameplay
 
-![gameplay](Docs/Images/gameplay.gif)
+<img src="Docs/Images/gameplay.gif" width="50%">
 
 ## Credits
 
