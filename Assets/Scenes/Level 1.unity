@@ -443,12 +443,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreStars: 0
-  scoreGoals: e8030000d0070000b80b0000
-  movesLeft: 2
+  scoreGoals: 881300004c1d000010270000
+  movesLeft: 30
   timeLeft: 60
   levelCounter: 1
   collectionGoals:
   - {fileID: 409132023}
+  - {fileID: 1365708914}
+  - {fileID: 463233879}
 --- !u!1 &125198365
 GameObject:
   m_ObjectHideFlags: 0
@@ -25380,7 +25382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToCollect: {fileID: 114422994271260120, guid: 7471f6d24260942c499dd3fbbeccadc6,
     type: 3}
-  numberToCollect: 1
+  numberToCollect: 22
 --- !u!1 &418233511
 GameObject:
   m_ObjectHideFlags: 0
@@ -25568,7 +25570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToCollect: {fileID: 114297461385377656, guid: ddd7ecb364d034ad295c2ea9c8df1999,
     type: 3}
-  numberToCollect: 5
+  numberToCollect: 22
 --- !u!4 &463233880
 Transform:
   m_ObjectHideFlags: 0
@@ -38281,7 +38283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToCollect: {fileID: 114351259461338076, guid: d25f2e53e91ce49bd99d368bec39987a,
     type: 3}
-  numberToCollect: 5
+  numberToCollect: 22
 --- !u!4 &1365708915
 Transform:
   m_ObjectHideFlags: 0
