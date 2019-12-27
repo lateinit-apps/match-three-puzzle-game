@@ -1,5 +1,7 @@
 # A match-three puzzle game
 
+<a href="https://play.google.com/store/apps/details?id=com.lateinit.apps.matchthreepuzzlegame"><img border="0" alt="Solaire Tetrix" src="Docs/Images/google-play-badge.png" width="35%" height="35%"></a>
+
 A match-three puzzle game in Unity created under Wilmer Lin's [course](https://www.udemy.com/course/make-a-puzzle-match-game-in-unity/).
 
 ## Available game pieces
