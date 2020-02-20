@@ -1,11 +1,12 @@
 # Unity3D generated files
-[Ll]ibrary/
-[Tt]emp/
-[Oo]bj/
-[Bb]uild/
-[Bb]uilds/
-[Mm]emoryCaptures/
-Assets/AssetStoreTools*
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Mm]emoryCaptures/
+/[Uu]ser[Ss]ettings/
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -35,10 +36,6 @@ ExportedObj/
 
 # Visual Studio Code settings
 .vscode
-
-# Built application files
-*.apk
-*.unitypackage
 
 # OS-specific files
 .DS_Store
